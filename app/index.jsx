@@ -1,16 +1,26 @@
-import { Text, View } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import { Text, View, ScrollView, SafeAreaView } from "react-native";
+import React from "react";
+import { Link } from "expo-router";
+import CustomButton from "../components/CustomButton";
+import { StatusBar } from "expo-status-bar";
 
 const ElectricEdge = () => {
+  const logData = () => {
+    console.log("Button Pressed")
+  }
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-3xl">ElectricEdge</Text>
-      <Link className="mt-4 p-4 text-white bg-blue-700" href="/explore">
-        Get Started
-      </Link>
-    </View>
-  )
-}
+    <SafeAreaView className="bg-elecDark h-full">
+      <View className="mt-96">
+        <Text className="text-2xl text-white text-center mx-4 font-medium">
+          Charge Smarter, Drive Further, Enhance Your Journey with <Text className="text-elecGold font-extrabold">ElectricEdge</Text>
+        </Text>
+        <CustomButton title="Get Started" handlePress={() => logData()} buttonStyles="mt-4 mx-4"/>
+      </View>
+      <StatusBar style="light"/>
+    </SafeAreaView>
 
-export default ElectricEdge
+  
+  );
+};
+
+export default ElectricEdge;

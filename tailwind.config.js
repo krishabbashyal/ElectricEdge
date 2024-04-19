@@ -2,7 +2,14 @@
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "elecDark":"#14171C",
+        "elecCyan":"#27BAA8",
+        "elecRed":"#BC6659",
+        "elecGold":"#DAB350",
+      }
+    },
   },
   plugins: [],
 }
