@@ -1,12 +1,15 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView } from "react-native";
+import React from "react";
+import ExploreChargerCard from "../../components/ExploreChargerCard";
 
 const Profile = () => {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Profile Page</Text>
-    </View>
-  )
-}
+    <SafeAreaView>
+      <View>
+        <Text>Profile Page</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default Profile
+export default Profile;
