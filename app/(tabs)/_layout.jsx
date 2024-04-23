@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Tabs } from "expo-router";
 
 import { Feather } from "@expo/vector-icons";
@@ -8,7 +8,7 @@ const TabsLayout = () => {
   return (
     <>
       <StatusBar style="light" />
-      <Tabs screenOptions={{ tabBarActiveTintColor: "#DAB350", tabBarInactiveTintColor: "#FFF", tabBarStyle: { backgroundColor: "#14171C", height: 90 } }}>
+      <Tabs screenOptions={{ tabBarActiveTintColor: "#DAB350", tabBarInactiveTintColor: "#555", tabBarStyle: { backgroundColor: "#14171C", height: 90,  } }}>
         <Tabs.Screen
           name="explore"
           options={{
