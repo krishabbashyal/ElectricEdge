@@ -7,13 +7,13 @@ import { StatusBar } from "expo-status-bar";
 const TabsLayout = () => {
   return (
     <>
-      <StatusBar style="light" />
-      <Tabs screenOptions={{ tabBarActiveTintColor: "#DAB350", tabBarInactiveTintColor: "#555", tabBarStyle: { backgroundColor: "#14171C", height: 90,  } }}>
+      <StatusBar style="dark" />
+      <Tabs screenOptions={{ tabBarActiveTintColor: "#3A8060", tabBarInactiveTintColor: "#A2AFA9", tabBarStyle: { backgroundColor: "#fff", height: 90,  } }}>
         <Tabs.Screen
           name="explore"
           options={{
             title: "Explore",
-            tabBarIcon: ({ color }) => <Feather name="battery-charging" size={30} color={color} />,
+            tabBarIcon: ({ color }) => <Feather name="battery-charging" size={32} color={color} />,
             headerShown: false,
           }}
         />
@@ -21,7 +21,7 @@ const TabsLayout = () => {
           name="profile"
           options={{
             title: "Profile",
-            tabBarIcon: ({ color }) => <Feather name="user" size={30} color={color} />,
+            tabBarIcon: ({ color }) => <Feather name="user" size={32} color={color} />,
             headerShown: false,
           }}
         />

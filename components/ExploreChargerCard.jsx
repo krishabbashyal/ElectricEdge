@@ -8,9 +8,9 @@ const ExploreChargerCard = ({ chargerType, chargerLocation, chargerRate, imageFi
       <View className="text-left">
         <Image className="w-full h-[350px] rounded-xl" source={imageSource} />
         <View className="pb-2">
-          <Text className="text-white text-xl font-bold mt-3">{chargerType}</Text>
-          <Text className="text-white text-lg ">{chargerLocation}</Text>
-          <Text className="text-white text-lg font-bold ">
+          <Text className="text-xl font-bold mt-3">{chargerType}</Text>
+          <Text className="text-lg ">{chargerLocation}</Text>
+          <Text className="text-lg font-bold ">
             ${chargerRate}
             <Text className="font-normal"> per hour</Text>
           </Text>
