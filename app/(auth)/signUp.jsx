@@ -25,15 +25,18 @@ const signUp = () => {
           payload={formData.email}
           handleTextChange={(e) => setFormData({ ...formData, email: e })}
           errorMessage="Please enter a valid email address"
+          validationType="Email"
           keyboardType="email-address"
+          preventSpaces={true}
         />
         <CustomInputField
           label="Password"
           placeholder="Password"
           payload={formData.password}
           handleTextChange={(e) => setFormData({ ...formData, password: e })}
+          validationType="Password"
           errorMessage="Password must be at least 6 characters"
-          keyboardType="password"
+          preventSpaces={true}
         />
         <CustomButton title="Sign Up" buttonStyles="bg-EE-Green mt-4" textStyles="text-white" handlePress={() => submitForm()} />
       </View>
