@@ -4,11 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "elecDark":"#14171C",
-        "elecGray":"#161821",
-        "elecCyan":"#3D7761",
-        "elecRed":"#BC6659",
-        "elecGold":"#DAB350",
+        "EE-Green":"#3A8060",
       }
     },
   },
