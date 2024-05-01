@@ -1,16 +1,22 @@
 import { View, TextInput, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { forwardRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState, useImperativeHandle } from "react";
 
-const CustomInputField = ({ label, placeholder, errorMessage, keyboardType, validationType, preventSpaces }) => {
+const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboardType, validationType, preventSpaces, sendDataToParent }, ref) => {
   const [inputError, setInputError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [fieldData, setFieldData] = useState(null);
+  const [userInput, setUserInput] = useState("");
+
+  useImperativeHandle(ref, () => ({
+    validate() {
+      return handleValidation(userInput);
+    },
+  }));
 
   const borderColor = inputError ? "border-EE-Red" : "border-EE-Green";
 
-  const showPasswordIcon = showPassword ? <Ionicons name="eye-off-outline" size={24} color="#3A8060" /> : <Ionicons name="eye-outline" size={24} color="#3A8060" />;
+  const showPasswordIcon = showPassword ? <Ionicons name="eye-off-outline" size={24} color="black" /> : <Ionicons name="eye-outline" size={24} color="black" />;
 
   const emailValidation = (email) => {
     const re = /\S+@\S+\.\S+/;
@@ -22,14 +28,14 @@ const CustomInputField = ({ label, placeholder, errorMessage, keyboardType, vali
     return trimmedPassword.length >= 6;
   };
 
-  const handleValidation = (fieldData) => {
+  const handleValidation = (userInput) => {
     let isValid = null;
 
     if (validationType === "Email") {
-      isValid = emailValidation(fieldData);
+      isValid = emailValidation(userInput);
     }
     if (validationType === "Password") {
-      isValid = passwordValidation(fieldData);
+      isValid = passwordValidation(userInput);
     }
     if (!isValid) {
       setInputError(true);
@@ -37,7 +43,7 @@ const CustomInputField = ({ label, placeholder, errorMessage, keyboardType, vali
     if (isValid && inputError) {
       setInputError(false);
     }
-    console.log(fieldData, isValid);
+    return isValid
   };
 
   return (
@@ -49,12 +55,11 @@ const CustomInputField = ({ label, placeholder, errorMessage, keyboardType, vali
         secureTextEntry={label === "Password" && !showPassword}
         keyboardType={keyboardType}
         onChangeText={(e) => {
-          if (preventSpaces === true) {
-            cleanedInput = e.replace(/\s/g, "");
-            setFieldData(cleanedInput);
-          }
+          const newValue = preventSpaces ? e.replace(/\s/g, "") : e;
+          setUserInput(newValue);
+          sendDataToParent(newValue);
         }}
-        value={fieldData}
+        value={userInput}
       />
       {inputError && <Text className="mt-2 text-EE-Red font-medium">{errorMessage}</Text>}
       {label === "Password" && (
@@ -64,6 +69,6 @@ const CustomInputField = ({ label, placeholder, errorMessage, keyboardType, vali
       )}
     </View>
   );
-};
+});
 
 export default CustomInputField;
