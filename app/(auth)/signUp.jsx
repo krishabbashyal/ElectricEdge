@@ -15,7 +15,7 @@ const signUp = () => {
     password: "",
   });
 
-  const [serverMessage, setServerMessage] = useState("")
+  const [serverMessage, setServerMessage] = useState("");
 
   const emailFieldRef = useRef(null);
   const passwordFieldRef = useRef(null);
@@ -29,18 +29,17 @@ const signUp = () => {
   };
 
   const submitForm = async () => {
-    setServerMessage("")
+    setServerMessage("");
     const emailValid = emailFieldRef.current.validate();
     const passwordValid = passwordFieldRef.current.validate();
 
     if (emailValid && passwordValid) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
-        router.replace("/explore")
-      } catch(error) {
-        setServerMessage(error.message)
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        router.replace("/explore");
+      } catch (error) {
+        setServerMessage(error.message);
       }
-
     }
   };
 
@@ -49,7 +48,7 @@ const signUp = () => {
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
         <Text className="mb-4 font-medium text-xl">Sign up for ElectricEdge</Text>
-        {serverMessage ? <AlertBanner message={serverMessage}/> : ""}
+        {serverMessage ? <AlertBanner message={serverMessage} /> : ""}
         <CustomInputField
           ref={emailFieldRef}
           label="Email"
