@@ -5,7 +5,7 @@ import CustomInputField from "../../components/CustomInputField";
 import CustomButton from "../../components/CustomButton";
 import { Link } from "expo-router";
 
-const signUp = () => {
+const logIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,7 +28,7 @@ const signUp = () => {
 
     if (emailValid && passwordValid) {
       // logic for handing a form submission
-      console.log("Sign Up Form Data: ", formData);
+      console.log("Log In Form Data: ", formData);
     }
   };
 
@@ -36,7 +36,7 @@ const signUp = () => {
     <SafeAreaView>
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
-        <Text className="mb-4 font-medium text-xl">Sign up for ElectricEdge</Text>
+        <Text className="mb-4 font-medium text-xl">Log in to ElectricEdge</Text>
         <CustomInputField
           ref={emailFieldRef}
           label="Email"
@@ -58,16 +58,16 @@ const signUp = () => {
           preventSpaces={true}
           sendDataToParent={handlePasswordChange}
         />
-        <CustomButton title="Sign Up" buttonStyles="bg-EE-Green mt-4" textStyles="text-white" handlePress={submitForm} />
+        <CustomButton title="Log In" buttonStyles="bg-EE-Green mt-4" textStyles="text-white" handlePress={submitForm} />
       </View>
       <View className="flex-row justify-center mt-3">
-        <Text>Already have an account?</Text>
-        <Link className="ml-1" href={"/logIn"}>
-          <Text className="font-bold text-EE-Green">Log In</Text>
+        <Text>Don't have an account?</Text>
+        <Link className="ml-1" href={"/signUp"}>
+          <Text className="font-bold text-EE-Green">Sign Up</Text>
         </Link>
       </View>
     </SafeAreaView>
   );
 };
 
-export default signUp;
+export default logIn;
