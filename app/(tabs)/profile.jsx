@@ -1,12 +1,23 @@
+import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
-import ExploreChargerCard from "../../components/ExploreChargerCard";
+import { auth } from "../../config/firebaseConfig";
 
 const Profile = () => {
+  const [userEmail, setUserEmail] = useState('');
+  
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      setUserEmail(user.email);
+    } else {
+      setUserEmail('No user logged in');
+    }
+  }, []);
+
   return (
     <SafeAreaView>
-      <View>
-        <Text>Profile Page</Text>
+      <View className="justify-center items-center h-full">
+        <Text>{userEmail}</Text>
       </View>
     </SafeAreaView>
   );
