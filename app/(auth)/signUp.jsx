@@ -4,6 +4,9 @@ import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomInputField from "../../components/CustomInputField";
 import CustomButton from "../../components/CustomButton";
 import { Link } from "expo-router";
+import { auth } from "../../config/firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { router } from "expo-router";
 
 const signUp = () => {
   const [formData, setFormData] = useState({
@@ -22,13 +25,16 @@ const signUp = () => {
     setFormData({ ...formData, password });
   };
 
-  const submitForm = () => {
+  const submitForm = async () => {
     const emailValid = emailFieldRef.current.validate();
     const passwordValid = passwordFieldRef.current.validate();
 
     if (emailValid && passwordValid) {
-      // logic for handing a form submission
+      // need to add try catch here to handle errors
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       console.log("Sign Up Form Data: ", formData);
+      console.log(userCredential)
+      router.push("/explore")
     }
   };
 
