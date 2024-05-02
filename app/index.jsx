@@ -9,10 +9,11 @@ const ElectricEdge = () => {
   return (
     <SafeAreaView className="flex-1">
       <View className="justify-center flex-1">
-        <ElectricEdgeHeader/>
+        <ElectricEdgeHeader />
         <Image className="w-full h-96" source={require("../assets/images/heroImage.png")} />
         <Text className="text-2xl text-center mx-6 font-medium">Charge Smarter, Drive Further, Enhance Your Journey.</Text>
         <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.push("/signUp")} />
+        <CustomButton title="Explore Page" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Red" handlePress={() => router.push("/explore")} />
       </View>
       <StatusBar style="dark" />
     </SafeAreaView>

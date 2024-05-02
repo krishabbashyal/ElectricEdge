@@ -34,7 +34,7 @@ const logIn = () => {
       const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
       console.log("Log In Form Data: ", formData);
       console.log(userCredential)
-      router.push("/explore")
+      router.replace("/explore")
     }
   };
 

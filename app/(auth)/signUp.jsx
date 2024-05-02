@@ -34,7 +34,7 @@ const signUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       console.log("Sign Up Form Data: ", formData);
       console.log(userCredential)
-      router.push("/explore")
+      router.replace("/explore")
     }
   };
 
