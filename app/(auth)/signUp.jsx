@@ -7,12 +7,15 @@ import { Link } from "expo-router";
 import { auth } from "../../config/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
+import AlertBanner from "../../components/AlertBanner";
 
 const signUp = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [serverMessage, setServerMessage] = useState("")
 
   const emailFieldRef = useRef(null);
   const passwordFieldRef = useRef(null);
@@ -26,15 +29,18 @@ const signUp = () => {
   };
 
   const submitForm = async () => {
+    setServerMessage("")
     const emailValid = emailFieldRef.current.validate();
     const passwordValid = passwordFieldRef.current.validate();
 
     if (emailValid && passwordValid) {
-      // need to add try catch here to handle errors
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      console.log("Sign Up Form Data: ", formData);
-      console.log(userCredential)
-      router.replace("/explore")
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        router.replace("/explore")
+      } catch(error) {
+        setServerMessage(error.message)
+      }
+
     }
   };
 
@@ -43,6 +49,7 @@ const signUp = () => {
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
         <Text className="mb-4 font-medium text-xl">Sign up for ElectricEdge</Text>
+        {serverMessage ? <AlertBanner message={serverMessage}/> : ""}
         <CustomInputField
           ref={emailFieldRef}
           label="Email"
