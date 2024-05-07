@@ -11,9 +11,9 @@ const ExploreSearchAndFilter = () => {
   };
 
   return (
-    <View className="px-6">
+    <View className="px-6 mt-2">
       <View className="flex-row items-center w-full">
-        <View className="flex-row items-center bg-white rounded-full flex-1 shadow-md">
+        <View className="flex-row items-center bg-white rounded-full flex-1 shadow-md border border-slate-100">
           <AntDesign name="search1" size={24} color="black" style={{ marginLeft: 16 }} />
           <TextInput className="h-14 mx-4 placeholder:font-semibold w-4/5" placeholder="Where to?" placeholderTextColor="black" onChangeText={e => setsearchData(e)} value={searchData}/>
           {/* This w-4/5 that is being used for the TextInput may not be ideal, but it is working for now - Might need to revisit for other mobile screens */}
