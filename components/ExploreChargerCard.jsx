@@ -4,7 +4,7 @@ import React from "react";
 const ExploreChargerCard = ({ chargerType, chargerLocation, chargerRate, imageFile }) => {
   const imageSource = imageFile;
   return (
-    <View className="mx-6 mb-8">
+    <View className="mb-8">
       <View className="text-left">
         <Image className="w-full h-[350px] rounded-xl" source={imageSource} />
         <View className="pb-2">
