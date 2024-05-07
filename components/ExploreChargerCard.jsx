@@ -1,10 +1,10 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-const ExploreChargerCard = ({ chargerType, chargerLocation, chargerRate, imageFile }) => {
+const ExploreChargerCard = ({ chargerType, chargerLocation, chargerRate, imageFile, cardStyles }) => {
   const imageSource = imageFile;
   return (
-    <View className="mb-8">
+    <View className={`mb-8 ${cardStyles}`}>
       <View className="text-left">
         <Image className="w-full h-[350px] rounded-xl" source={imageSource} />
         <View className="pb-2">

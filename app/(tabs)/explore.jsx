@@ -36,6 +36,7 @@ const explore = () => {
                 chargerType="Level 2: 240-Volt Outlet"
                 chargerLocation="New York City, NY"
                 chargerRate="2.37"
+                cardStyles={"mb-48"}
               />
             </View>
           </ScrollView>
