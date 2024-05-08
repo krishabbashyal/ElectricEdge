@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import ProfileCard from "../../components/ProfileCard";
+import ListYourCharger from "../../components/ListYourCharger";
 
 
 const Profile = () => {
@@ -14,6 +15,7 @@ const Profile = () => {
         <View>
           <ProfileCard/>
         </View>
+        <ListYourCharger/>
       </View>
     </SafeAreaView>
   );
