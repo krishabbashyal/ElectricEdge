@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
-import { auth } from "../../config/firebaseConfig";
-import { signOut } from "firebase/auth";
-import CustomButton from "../../components/CustomButton"
-import { router } from "expo-router";
+import ProfileCard from "../../components/ProfileCard";
 
 
 const Profile = () => {
-  const [userEmail, setUserEmail] = useState('');
-
-  const handleUserSignOut = async () => {
-    await signOut(auth)
-    router.replace("/logIn")
-
-  }
-  
-  useEffect(() => {
-    const user = auth.currentUser;
-    if (user) {
-      setUserEmail(user.email);
-    } else {
-      setUserEmail('No user logged in');
-    }
-  }, []);
 
   return (
-    <SafeAreaView>
-      <View className="justify-center items-center h-full mx-8">
-        <Text>{userEmail}</Text>
-        <CustomButton title="Sign Out" buttonStyles="w-full h-10 bg-EE-Red mt-4" textStyles="text-white" handlePress={handleUserSignOut}/>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <View className="mx-8">
+        <View className="mt-16">
+          <Text className="text-3xl font-semibold">Profile</Text>
+        </View>
+        <View>
+          <ProfileCard/>
+        </View>
       </View>
     </SafeAreaView>
   );
