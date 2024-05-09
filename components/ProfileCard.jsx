@@ -20,7 +20,7 @@ const ProfileCard = () => {
       
         <View className="flex-row items-center pb-4 justify-between mt-9 border-b border-gray-300 h-20">
           <View className="flex-row items-center">
-            <Image className="w-14 h-14 rounded-full border border-slate-400" source={require(".././assets/images/profilePicture.png")} />
+            <Image className="w-14 h-14 rounded-full" source={require(".././assets/images/profilePicture.png")} />
             <View className="w-[256px]">
               <Text className="text-lg ml-4">{userEmail}</Text>
               <Text className="ml-4 text-slate-500">Show Profile</Text>
