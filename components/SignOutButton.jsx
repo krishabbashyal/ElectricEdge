@@ -7,7 +7,7 @@ import { router } from "expo-router";
 
 
 
-const SignOutButton = () => {
+const SignOutButton = ({customStyles}) => {
 
   const handleUserSignOut = async () => {
     await signOut(auth)
@@ -16,7 +16,7 @@ const SignOutButton = () => {
   }
 
   return (
-    <View className="border-b pb-4 border-gray-300">
+    <View className={`mt-4 border-b border-gray-300 pb-2.5 ${customStyles}`}>
       <TouchableOpacity className="flex-row" onPress={handleUserSignOut}>
         <SimpleLineIcons name="logout" size={20} color="red" />
         <Text className="ml-4 text-red-500 text-base">Sign out</Text>
