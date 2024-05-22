@@ -28,6 +28,11 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     return trimmedPassword.length >= 6;
   };
 
+  const stringValidation = (string) => {
+    const trimmedString = string.trim();
+    return trimmedString.length >= 3;
+  };
+
   const handleValidation = (userInput) => {
     let isValid = null;
 
@@ -36,6 +41,9 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     }
     if (validationType === "Password") {
       isValid = passwordValidation(userInput);
+    }
+    if (validationType === "String") {
+      isValid = stringValidation(userInput);
     }
     if (!isValid) {
       setInputError(true);
