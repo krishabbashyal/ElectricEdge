@@ -14,6 +14,8 @@ const ElectricEdge = () => {
         <Text className="text-2xl text-center mx-6 font-medium">Charge Smarter, Drive Further, Enhance Your Journey.</Text>
         <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.push("/signUp")} />
         <CustomButton title="Explore Page" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Red" handlePress={() => router.push("/explore")} />
+        <CustomButton title="Onboarding Page" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-blue-500" handlePress={() => router.push("/onboarding")} />
+
       </View>
       <StatusBar style="dark" />
     </SafeAreaView>
