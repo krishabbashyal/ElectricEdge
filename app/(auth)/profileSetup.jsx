@@ -9,6 +9,7 @@ import CustomInputField from "../../components/CustomInputField";
 const profileSetup = () => {
   const [formData, setFormData] = useState({
     displayName: "",
+    phoneNumber: "",
   });
 
   const [formattedDisplayName, setFormattedDisplayName] = useState("");
@@ -25,13 +26,18 @@ const profileSetup = () => {
     }
   };
 
+  const handlePhoneNumberChange = (phoneNumber) => {
+    setFormData({ ...formData, phoneNumber });
+  };
+
   const checkboxHandler = (isChecked) => {
-    setIsChecked(isChecked => !isChecked);
+    setIsChecked((isChecked) => !isChecked);
     console.log(isChecked);
   };
 
   const submitForm = async () => {
     const displayNameValid = displayNameRef.current.validate();
+    console.log(formData)
   };
 
   return (
@@ -53,8 +59,20 @@ const profileSetup = () => {
           customStyles="mt-2"
         />
 
+        <CustomInputField
+          ref={displayNameRef}
+          label="What is a good phone number?"
+          placeholder="Phone Number"
+          payload={formData.phoneNumber}
+          validationType="PhoneNumber"
+          errorMessage="Please enter a valid phone number"
+          preventSpaces={true}
+          sendDataToParent={handlePhoneNumberChange}
+          customStyles=""
+        />
+
         <View className="flex flex-row items-center">
-          <Checkbox style={styles.checkbox} value={isChecked} onValueChange={checkboxHandler} color={'#3A8060'} />
+          <Checkbox style={styles.checkbox} value={isChecked} onValueChange={checkboxHandler} color={"#3A8060"} />
           <Text className="ml-2">I understand that this application is just a prototype</Text>
         </View>
 
