@@ -1,7 +1,7 @@
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useState, useRef } from "react";
-import { Link } from "expo-router";
+import Checkbox from "expo-checkbox";
 import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
@@ -11,29 +11,34 @@ const profileSetup = () => {
     displayName: "",
   });
 
-  const [formattedDisplayName, setFormattedDisplayName] = useState("")
+  const [formattedDisplayName, setFormattedDisplayName] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const displayNameRef = useRef(null);
 
   const handleDisplayNameChange = (displayName) => {
     setFormData({ ...formData, displayName });
-    if (displayName.length == 0){
-    setFormattedDisplayName("");
-      
+    if (displayName.length == 0) {
+      setFormattedDisplayName("");
     } else {
-    setFormattedDisplayName(` ${displayName}`);
+      setFormattedDisplayName(` ${displayName}`);
     }
   };
 
+  const checkboxHandler = (isChecked) => {
+    setIsChecked(isChecked => !isChecked);
+    console.log(isChecked);
+  };
+
   const submitForm = async () => {
-    const displayNameValid = displayNameRef.current.validate()
-  }
+    const displayNameValid = displayNameRef.current.validate();
+  };
 
   return (
     <SafeAreaView>
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
-        <Text className="font-bold text-3xl max-w-lg">Hello{ formattedDisplayName}, It is nice to meet you. 👋 </Text>
+        <Text className="font-bold text-3xl max-w-lg">Hello{formattedDisplayName}, It is nice to meet you. 👋 </Text>
         <Text className="mb-4 text-gray-700 mt-2 text-[17px]">We just need a little more information before we can begin!</Text>
 
         <CustomInputField
@@ -48,16 +53,23 @@ const profileSetup = () => {
           customStyles="mt-2"
         />
 
-        
+        <View className="flex flex-row items-center">
+          <Checkbox style={styles.checkbox} value={isChecked} onValueChange={checkboxHandler} color={'#3A8060'} />
+          <Text className="ml-2">I understand that this application is just a prototype</Text>
+        </View>
 
-        
-
-      
-
-        <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-4" textStyles="text-white" handlePress={submitForm} />
+        <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
       </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  checkbox: {
+    height: 22,
+    width: 22,
+    borderRadius: 6,
+  },
+});
 
 export default profileSetup;
