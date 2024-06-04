@@ -11,10 +11,18 @@ const profileSetup = () => {
     displayName: "",
   });
 
+  const [formattedDisplayName, setFormattedDisplayName] = useState("")
+
   const displayNameRef = useRef(null);
 
   const handleDisplayNameChange = (displayName) => {
     setFormData({ ...formData, displayName });
+    if (displayName.length == 0){
+    setFormattedDisplayName("");
+      
+    } else {
+    setFormattedDisplayName(` ${displayName}`);
+    }
   };
 
   const submitForm = async () => {
@@ -25,8 +33,8 @@ const profileSetup = () => {
     <SafeAreaView>
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
-        <Text className="font-medium text-xl">Hello, It is nice to meet you.</Text>
-        <Text className="mb-4 text-gray-700">We need just a little more information about to before we can begin!</Text>
+        <Text className="font-bold text-4xl max-w-lg">Hello{ formattedDisplayName}, It is nice to meet you. 👋 </Text>
+        <Text className="mb-4 text-gray-700 mt-2 text-[17px]">We just need a little more information before we can begin!</Text>
 
         <CustomInputField
           ref={displayNameRef}
@@ -37,8 +45,13 @@ const profileSetup = () => {
           errorMessage="Display name must be at least 3 characters"
           preventSpaces={true}
           sendDataToParent={handleDisplayNameChange}
-
+          customStyles="mt-2"
         />
+
+        
+
+      
+
         <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-4" textStyles="text-white" handlePress={submitForm} />
       </View>
     </SafeAreaView>
