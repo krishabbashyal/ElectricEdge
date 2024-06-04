@@ -33,7 +33,7 @@ const profileSetup = () => {
     <SafeAreaView>
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
-        <Text className="font-bold text-4xl max-w-lg">Hello{ formattedDisplayName}, It is nice to meet you. 👋 </Text>
+        <Text className="font-bold text-3xl max-w-lg">Hello{ formattedDisplayName}, It is nice to meet you. 👋 </Text>
         <Text className="mb-4 text-gray-700 mt-2 text-[17px]">We just need a little more information before we can begin!</Text>
 
         <CustomInputField
@@ -47,6 +47,8 @@ const profileSetup = () => {
           sendDataToParent={handleDisplayNameChange}
           customStyles="mt-2"
         />
+
+        
 
         
 
