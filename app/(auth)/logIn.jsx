@@ -47,7 +47,7 @@ const logIn = () => {
     <SafeAreaView>
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
-        <Text className="mb-4 font-medium text-xl">Log in to ElectricEdge</Text>
+        <Text className="mb-4 font-medium text-2xl">Log in to ElectricEdge</Text>
         {serverMessage ? <AlertBanner message={serverMessage} /> : ""}
         <CustomInputField
           ref={emailFieldRef}
