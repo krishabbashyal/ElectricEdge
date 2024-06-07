@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useImperativeHandle } from "react";
 
-const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboardType, customStyles, validationType, preventSpaces, sendDataToParent }, ref) => {
+const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboardType, customStyles, validationType, preventSpaces, numericOnly, sendDataToParent }, ref) => {
   const [inputError, setInputError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -33,6 +33,11 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     return trimmedString.length >= 3;
   };
 
+  const phoneNumberValidation = (phoneNumber) => {
+    const cleanedNumber = phoneNumber.replace(/[^\d]/g, "");
+    return cleanedNumber.length == 10
+  };
+
   const handleValidation = (userInput) => {
     let isValid = null;
 
@@ -44,6 +49,9 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     }
     if (validationType === "String") {
       isValid = stringValidation(userInput);
+    }
+    if (validationType === "PhoneNumber") {
+      isValid = phoneNumberValidation(userInput);
     }
     if (!isValid) {
       setInputError(true);
@@ -63,9 +71,25 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
         secureTextEntry={label === "Password" && !showPassword}
         keyboardType={keyboardType}
         onChangeText={(e) => {
-          const newValue = preventSpaces ? e.replace(/\s/g, "") : e;
-          setUserInput(newValue);
-          sendDataToParent(newValue);
+          const spacesPrevented = preventSpaces ? e.replace(/\s/g, "") : e;
+          setUserInput(spacesPrevented);
+          sendDataToParent(spacesPrevented);
+
+          const lettersRemoved = numericOnly ? e.replace(/[^\d]/g, "") : e;
+
+          if (validationType == "PhoneNumber") {
+            let formattedPhoneNumber = "";
+
+            if (lettersRemoved.length > 3 && lettersRemoved.length <= 6) {
+              formattedPhoneNumber = `${lettersRemoved.slice(0, 3)}-${lettersRemoved.slice(3)}`;
+            } else if (lettersRemoved.length > 6) {
+              formattedPhoneNumber = `${lettersRemoved.slice(0, 3)}-${lettersRemoved.slice(3, 6)}-${lettersRemoved.slice(6, 10)}`;
+            } else {
+              formattedPhoneNumber = lettersRemoved;
+            }
+            setUserInput(formattedPhoneNumber)
+            sendDataToParent(formattedPhoneNumber)
+          }
         }}
         value={userInput}
       />

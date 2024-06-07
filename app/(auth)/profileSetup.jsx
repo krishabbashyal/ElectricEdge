@@ -16,6 +16,7 @@ const profileSetup = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const displayNameRef = useRef(null);
+  const phoneNumberRef = useRef(null);
 
   const handleDisplayNameChange = (displayName) => {
     setFormData({ ...formData, displayName });
@@ -37,7 +38,15 @@ const profileSetup = () => {
 
   const submitForm = async () => {
     const displayNameValid = displayNameRef.current.validate();
-    console.log(formData)
+    const phoneNumberValid = phoneNumberRef.current.validate();
+
+    if (displayNameValid && phoneNumberValid && isChecked) {
+      console.log(`'Display Name': ${formData.displayName}`);
+      console.log(`Phone Number: ${formData.phoneNumber}`);
+      console.log(`Terms Agreed: ${isChecked}`);
+    } else {
+      console.log("Something does not look right, will not send to server");
+    }
   };
 
   return (
@@ -60,13 +69,14 @@ const profileSetup = () => {
         />
 
         <CustomInputField
-          ref={displayNameRef}
+          ref={phoneNumberRef}
           label="What is a good phone number?"
           placeholder="Phone Number"
           payload={formData.phoneNumber}
           validationType="PhoneNumber"
           errorMessage="Please enter a valid phone number"
           preventSpaces={true}
+          numericOnly={true}
           sendDataToParent={handlePhoneNumberChange}
           customStyles=""
         />
