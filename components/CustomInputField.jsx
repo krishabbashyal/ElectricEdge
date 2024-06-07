@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useImperativeHandle } from "react";
 
-const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboardType, validationType, preventSpaces, sendDataToParent }, ref) => {
+const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboardType, customStyles, validationType, preventSpaces, sendDataToParent }, ref) => {
   const [inputError, setInputError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -28,6 +28,11 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     return trimmedPassword.length >= 6;
   };
 
+  const stringValidation = (string) => {
+    const trimmedString = string.trim();
+    return trimmedString.length >= 3;
+  };
+
   const handleValidation = (userInput) => {
     let isValid = null;
 
@@ -37,18 +42,21 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
     if (validationType === "Password") {
       isValid = passwordValidation(userInput);
     }
+    if (validationType === "String") {
+      isValid = stringValidation(userInput);
+    }
     if (!isValid) {
       setInputError(true);
     }
     if (isValid && inputError) {
       setInputError(false);
     }
-    return isValid
+    return isValid;
   };
 
   return (
-    <View className="mb-4">
-      <Text className="font-medium mb-1.5">{label}</Text>
+    <View className={`mb-4 ${customStyles}`}>
+      <Text className="font-medium mb-1.5 text-lg">{label}</Text>
       <TextInput
         className={`h-12 w-full px-4 border focus:border-2 rounded-lg ${borderColor} bg-white placeholder:font-medium`}
         placeholder={placeholder}
