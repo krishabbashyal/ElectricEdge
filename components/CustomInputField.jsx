@@ -71,7 +71,7 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
       />
       {inputError && <Text className="mt-2 text-EE-Red font-medium">{errorMessage}</Text>}
       {label === "Password" && (
-        <TouchableOpacity className="absolute right-4 mt-[35px]" onPress={() => setShowPassword(!showPassword)}>
+        <TouchableOpacity className="absolute right-4 mt-11" onPress={() => setShowPassword(!showPassword)}>
           {showPasswordIcon}
         </TouchableOpacity>
       )}
