@@ -13,8 +13,10 @@ const ElectricEdge = () => {
         <Image className="w-full h-96" source={require("../assets/images/heroImage.png")} />
         <Text className="text-2xl text-center mx-6 font-medium">Charge Smarter, Drive Further, Enhance Your Journey.</Text>
         <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.push("/signUp")} />
-        <CustomButton title="Explore Page" textStyles="text-white text-xs font-medium" buttonStyles="mt-6 h-7 mx-6 bg-orange-400" handlePress={() => router.push("/explore")} />
-        <CustomButton title="Onboarding Page" textStyles="text-white text-xs font-medium" buttonStyles="mt-2 h-7 mx-6 bg-blue-500" handlePress={() => router.push("/profileSetup")} />
+        <View className="flex flex-row justify-evenly mt-5 w-full">
+          <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/explore")} />
+          <CustomButton title="Onboarding Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profileSetup")} />
+        </View>
 
       </View>
       <StatusBar style="dark" />
