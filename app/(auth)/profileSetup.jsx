@@ -10,6 +10,8 @@ const profileSetup = () => {
   const [formData, setFormData] = useState({
     displayName: "",
     phoneNumber: "",
+    // TODO: ADD THE isChecked DATA INTO THIS FORM STATE SO THAT WE CAN SEND IT ALL AT ONCE AND REMOVE THE NEED FOR ANOTHER useState IN THIS COMPONENT
+    // TODO: ADD USER VALIDATION FOR THE CHECKBOX TO LET THEM KNOW THAT THIS IS A REQUIRED FIELD
   });
 
   const [formattedDisplayName, setFormattedDisplayName] = useState("");
