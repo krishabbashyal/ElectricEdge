@@ -36,7 +36,7 @@ const signUp = () => {
     if (emailValid && passwordValid) {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-        router.replace("/explore");
+        router.replace("/profileSetup");
       } catch (error) {
         setServerMessage(error.message);
       }
