@@ -18,6 +18,19 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
 
   const showPasswordIcon = showPassword ? <Ionicons name="eye-off-outline" size={24} color="black" /> : <Ionicons name="eye-outline" size={24} color="black" />;
 
+  const formatPhoneNumber = (phoneNumber) => {
+    let formattedPhoneNumber = "";
+
+    if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
+      formattedPhoneNumber = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
+    } else if (phoneNumber.length > 6) {
+      formattedPhoneNumber = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+    } else {
+      formattedPhoneNumber = phoneNumber;
+    }
+    return formattedPhoneNumber;
+  };
+
   const emailValidation = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -35,7 +48,7 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
 
   const phoneNumberValidation = (phoneNumber) => {
     const cleanedNumber = phoneNumber.replace(/[^\d]/g, "");
-    return cleanedNumber.length == 10
+    return cleanedNumber.length == 10;
   };
 
   const handleValidation = (userInput) => {
@@ -71,25 +84,20 @@ const CustomInputField = forwardRef(({ label, placeholder, errorMessage, keyboar
         secureTextEntry={label === "Password" && !showPassword}
         keyboardType={keyboardType}
         onChangeText={(e) => {
-          const spacesPrevented = preventSpaces ? e.replace(/\s/g, "") : e;
-          setUserInput(spacesPrevented);
-          sendDataToParent(spacesPrevented);
+          let editedInput = e;
 
-          const lettersRemoved = numericOnly ? e.replace(/[^\d]/g, "") : e;
-
-          if (validationType == "PhoneNumber") {
-            let formattedPhoneNumber = "";
-
-            if (lettersRemoved.length > 3 && lettersRemoved.length <= 6) {
-              formattedPhoneNumber = `${lettersRemoved.slice(0, 3)}-${lettersRemoved.slice(3)}`;
-            } else if (lettersRemoved.length > 6) {
-              formattedPhoneNumber = `${lettersRemoved.slice(0, 3)}-${lettersRemoved.slice(3, 6)}-${lettersRemoved.slice(6, 10)}`;
-            } else {
-              formattedPhoneNumber = lettersRemoved;
-            }
-            setUserInput(formattedPhoneNumber)
-            sendDataToParent(formattedPhoneNumber)
+          if (preventSpaces) {
+            editedInput = editedInput.replace(/\s/g, "");
           }
+          if (numericOnly) {
+            editedInput = editedInput.replace(/[^\d]/g, "");
+          }
+          if (validationType === "PhoneNumber") {
+            editedInput = formatPhoneNumber(editedInput);
+          }
+
+          setUserInput(editedInput);
+          sendDataToParent(editedInput);
         }}
         value={userInput}
       />
