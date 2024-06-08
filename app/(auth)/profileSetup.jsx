@@ -7,15 +7,15 @@ import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 
 const profileSetup = () => {
+
   const [formData, setFormData] = useState({
     displayName: "",
     phoneNumber: "",
-    // TODO: ADD THE isChecked DATA INTO THIS FORM STATE SO THAT WE CAN SEND IT ALL AT ONCE AND REMOVE THE NEED FOR ANOTHER useState IN THIS COMPONENT
-    // TODO: ADD USER VALIDATION FOR THE CHECKBOX TO LET THEM KNOW THAT THIS IS A REQUIRED FIELD
+    agreedToTerms: false,
   });
 
   const [formattedDisplayName, setFormattedDisplayName] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [checkboxError, setCheckboxError] = useState(false)
 
   const displayNameRef = useRef(null);
   const phoneNumberRef = useRef(null);
@@ -33,21 +33,34 @@ const profileSetup = () => {
     setFormData({ ...formData, phoneNumber });
   };
 
-  const checkboxHandler = (isChecked) => {
-    setIsChecked((isChecked) => !isChecked);
-    console.log(isChecked);
+  const handleAgreedToTermsChange = () => {
+    setFormData({ ...formData, agreedToTerms: !formData.agreedToTerms});
   };
+
+  const getCheckboxValue = (checkboxValue) => {
+    setCheckboxError(!checkboxValue)
+    return checkboxValue;
+  }
 
   const submitForm = async () => {
     const displayNameValid = displayNameRef.current.validate();
     const phoneNumberValid = phoneNumberRef.current.validate();
+    const termsAgreed = getCheckboxValue(formData.agreedToTerms)
 
-    if (displayNameValid && phoneNumberValid && isChecked) {
-      console.log(`'Display Name': ${formData.displayName}`);
+    if (termsAgreed){
+      setCheckboxError(false)
+    }
+
+    if (displayNameValid && phoneNumberValid && termsAgreed) {
+      console.log(`Display Name: ${formData.displayName}`);
       console.log(`Phone Number: ${formData.phoneNumber}`);
-      console.log(`Terms Agreed: ${isChecked}`);
+      console.log(`Terms Agreed: ${formData.agreedToTerms}`);
     } else {
       console.log("Something does not look right, will not send to server");
+      console.log(`Display Name: ${formData.displayName}`);
+      console.log(`Phone Number: ${formData.phoneNumber}`);
+      console.log(`Terms Agreed: ${formData.agreedToTerms}`);
+      console.log(displayNameValid, phoneNumberValid, termsAgreed)
     }
   };
 
@@ -80,12 +93,12 @@ const profileSetup = () => {
           preventSpaces={true}
           numericOnly={true}
           sendDataToParent={handlePhoneNumberChange}
-          customStyles=""
+          customStyles="pb-2"
         />
 
-        <View className="flex flex-row items-center">
-          <Checkbox style={styles.checkbox} value={isChecked} onValueChange={checkboxHandler} color={"#3A8060"} />
-          <Text className="ml-2">I understand that this application is just a prototype</Text>
+        <View className="flex flex-row items-center pt-4 border-t border-gray-300">
+          <Checkbox style={styles.checkbox} value={formData.agreedToTerms} onValueChange={handleAgreedToTermsChange} color={checkboxError ? "#BC6659" : "#3A8060"} />
+          <Text className={checkboxError ? "ml-2 text-EE-Red" : "ml-2"}>I understand that this application is just a prototype</Text>
         </View>
 
         <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
