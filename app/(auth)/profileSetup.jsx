@@ -75,9 +75,13 @@ const profileSetup = () => {
             <View className="mx-8">
               <Text className="font-bold text-3xl max-w-lg">Would you like to add a profile picture? </Text>
               <Text className="mb-4 text-gray-700 mt-2 text-[17px]">Don't worry, you can always come back and do this later.</Text>
-              <Image className="w-72 h-72 rounded-full" source={require("../../assets/images/profilePicture.png")} />
-              <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
-              <CustomButton title="Go Back" buttonStyles="mt-8" textStyles="text-white" handlePress={submitForm} />
+              <View className="flex items-center">
+                <Image className="w-[350px] h-[350px] rounded-full border-4 border-gray-500" source={require("../../assets/images/profilePicture.png")} />
+              </View>
+              <View className="flex flex-row justify-between">
+              <CustomButton title="Go Back" buttonStyles="mt-8 w-44" textStyles="text-white" handlePress={submitForm} />
+                <CustomButton title="Continue" buttonStyles="bg-EE-Green mt-8 w-44" textStyles="text-white" handlePress={submitForm} />
+              </View>
             </View>
           </View>
         );
