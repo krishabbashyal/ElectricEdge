@@ -17,7 +17,6 @@ const ElectricEdge = () => {
           <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/explore")} />
           <CustomButton title="Onboarding Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profileSetup")} />
         </View>
-
       </View>
       <StatusBar style="dark" />
     </SafeAreaView>
