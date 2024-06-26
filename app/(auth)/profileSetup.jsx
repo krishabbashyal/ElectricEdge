@@ -76,7 +76,7 @@ const profileSetup = () => {
               <Text className="font-bold text-3xl max-w-lg">Would you like to add a profile picture? </Text>
               <Text className="mb-4 text-gray-700 mt-2 text-[17px]">Don't worry, you can always come back and do this later.</Text>
               <View className="flex items-center">
-                <Image className="w-[350px] h-[350px] rounded-full border-[5px] border-slate-700" source={require("../../assets/images/profilePicture.png")} />
+                <Image className="w-[350px] h-[350px] rounded-full border-[3px] border-slate-700" source={require("../../assets/images/profilePicture.png")} />
               </View>
               <View className="flex flex-row justify-between mt-12">
               <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => setFormStep("")} />
