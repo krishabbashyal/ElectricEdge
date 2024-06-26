@@ -48,7 +48,7 @@ const signUp = () => {
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
         <Text className="mb-4 font-medium text-2xl">Sign up for ElectricEdge</Text>
-        {serverMessage ? <AlertBanner message={serverMessage} /> : ""}
+        {serverMessage ? <AlertBanner serverMessage={serverMessage} /> : ""}
         <CustomInputField
           ref={emailFieldRef}
           label="Email"

@@ -39,6 +39,7 @@ const logIn = () => {
         router.replace("/explore");
       } catch (error) {
         setServerMessage(error.message);
+
       }
     }
   };
@@ -48,7 +49,7 @@ const logIn = () => {
       <ElectricEdgeHeader customStyles="mt-8" />
       <View className="mx-8">
         <Text className="mb-4 font-medium text-2xl">Log in to ElectricEdge</Text>
-        {serverMessage ? <AlertBanner message={serverMessage} /> : ""}
+        {serverMessage ? <AlertBanner serverMessage={serverMessage} /> : ""}
         <CustomInputField
           ref={emailFieldRef}
           label="Email"

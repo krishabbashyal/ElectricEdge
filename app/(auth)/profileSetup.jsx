@@ -1,12 +1,11 @@
 import { SafeAreaView, View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Checkbox from "expo-checkbox";
 import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 
-const profileSetup = () => {
+const ProfileSetup = () => {
   const [formData, setFormData] = useState({
     displayName: "",
     phoneNumber: "",
@@ -22,7 +21,7 @@ const profileSetup = () => {
 
   const handleDisplayNameChange = (displayName) => {
     setFormData({ ...formData, displayName });
-    if (displayName.length == 0) {
+    if (displayName.length === 0) {
       setFormattedDisplayName("");
     } else {
       setFormattedDisplayName(` ${displayName}`);
@@ -43,7 +42,6 @@ const profileSetup = () => {
   };
 
   const submitForm = async () => {
-    setFormStep("profilePictureSetup");
     const displayNameValid = displayNameRef.current.validate();
     const phoneNumberValid = phoneNumberRef.current.validate();
     const termsAgreed = getCheckboxValue(formData.agreedToTerms);
@@ -79,7 +77,7 @@ const profileSetup = () => {
                 <Image className="w-[350px] h-[350px] rounded-full border-[3px] border-slate-700" source={require("../../assets/images/profilePicture.png")} />
               </View>
               <View className="flex flex-row justify-between mt-12">
-              <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => setFormStep("")} />
+                <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => setFormStep("")} />
                 <CustomButton title="Continue" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={submitForm} />
               </View>
               <View className="flex items-center mt-14">
@@ -141,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default profileSetup;
+export default ProfileSetup;
