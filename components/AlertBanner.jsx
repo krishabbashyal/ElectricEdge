@@ -10,11 +10,9 @@ const AlertBanner = ({serverMessage, type}) => {
     switch (serverMessage) {
       case "Firebase: Error (auth/invalid-credential).":
         setClientServerMessage("Invalid email or password.")
-        console.log("Triggered")
         break
       case "Firebase: Error (auth/email-already-in-use).":
         setClientServerMessage("An account with this email already exists.")
-        console.log("Triggered 2")
         break
       default:
         setClientServerMessage("An unknown error occured")

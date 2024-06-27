@@ -7,7 +7,7 @@ const ExploreSearchAndFilter = () => {
   const [searchData, setsearchData] = useState("");
 
   const handleFilterClick = () => {
-    console.log("Filter Clicked");
+  
   };
 
   return (
