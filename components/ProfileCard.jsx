@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { View, Text, Image } from "react-native";
-import { auth } from "../config/firebaseConfig";
 import { MaterialIcons } from "@expo/vector-icons";
 import { UserContext } from "../config/UserContext"
 
