@@ -11,7 +11,7 @@ const ProfileCard = () => {
       <View className="flex-row items-center">
         <Image className="w-14 h-14 rounded-full" source={require(".././assets/images/profilePicture.png")} />
         <View className="w-[256px]">
-          <Text className="text-lg ml-4">{currentUser ? currentUser.email : "No User"}</Text>
+          <Text className="text-lg ml-4">{currentUser ? currentUser.uid : "No User"}</Text>
           <Text className="ml-4 text-slate-500">Show Profile</Text>
         </View>
       </View>
