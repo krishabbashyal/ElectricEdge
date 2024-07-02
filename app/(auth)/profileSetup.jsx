@@ -1,5 +1,5 @@
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Checkbox from "expo-checkbox";
 import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomButton from "../../components/CustomButton";
@@ -8,10 +8,11 @@ import { router } from "expo-router";
 import { db } from "../../config/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
+import { UserContext } from "../../config/UserContext";
 
-import { auth } from "../../config/firebaseConfig";
 
 const ProfileSetup = () => {
+  const { currentUser } = useContext(UserContext)
   const [formData, setFormData] = useState({
     displayName: "",
     phoneNumber: "",
@@ -46,13 +47,8 @@ const ProfileSetup = () => {
     return checkboxValue;
   };
 
-  const getCurrentUser = async () => {
-    return (user = auth.currentUser);
-  };
-
-  const sendDataToFirebase = async (displayName, phoneNumber, termsAgreed) => {
-    const user = getCurrentUser();
-    await setDoc(doc(db, "profiles", user._j.uid), {
+  const sendDataToFirebase = async (displayName, phoneNumber, termsAgreed, currentUser) => {
+    await setDoc(doc(db, "profiles", currentUser.uid), {
       display_name: displayName,
       phone_number: phoneNumber,
       terms_agreed: termsAgreed,
@@ -70,7 +66,7 @@ const ProfileSetup = () => {
     }
 
     if (displayNameValid && phoneNumberValid && termsAgreed) {
-      sendDataToFirebase(formData.displayName, formData.phoneNumber, termsAgreed);
+      sendDataToFirebase(formData.displayName, formData.phoneNumber, termsAgreed, currentUser);
       router.push("profilePictureSetup");
     }
   };
