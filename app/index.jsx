@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Text, View, SafeAreaView, Image } from "react-native";
 import { router } from "expo-router";
 import CustomButton from "../components/CustomButton";
 import ElectricEdgeHeader from "../components/ElectricEdgeHeader";
 import { StatusBar } from "expo-status-bar";
+import { UserContext } from "../config/UserContext"
 
 const ElectricEdge = () => {
+  const { currentUser } = useContext(UserContext)
+
+  const checkForUser = () => {
+    if (currentUser) {
+      router.replace('explore')
+    }
+  }
+
+  checkForUser()
+
   return (
     <SafeAreaView className="flex-1">
       <View className="justify-center flex-1">
