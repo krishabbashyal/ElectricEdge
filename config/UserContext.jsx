@@ -22,7 +22,7 @@ const UserProvider = ({ children }) => {
 
   
   useEffect(() => {
-    console.log("AUTH STATE: ", currentUser)
+    console.log("AUTH STATE: ", currentUser ? "User Logged In" : "User Not Logged In")
   }, [currentUser])
 
 
