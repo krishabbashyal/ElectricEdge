@@ -1,10 +1,15 @@
-import { View, Text, Image, SafeAreaView } from "react-native";
+import { View, Text, Image, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import { router } from "expo-router";
 
 const profilePictureSetup = () => {
+
+  const handleSetupLaterPress = () => {
+    router.push('/explore')
+  }
+
   return (
     <SafeAreaView>
       <View>
@@ -20,7 +25,9 @@ const profilePictureSetup = () => {
             <CustomButton title="Continue" buttonStyles="bg-EE-Green w-44" textStyles="text-white" />
           </View>
           <View className="flex items-center mt-14">
-            <Text className="text-xl font-bold text-blue-400">Setup Later</Text>
+            <TouchableOpacity onPress={handleSetupLaterPress}>
+              <Text className="text-xl font-bold text-blue-500">Setup Later</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
