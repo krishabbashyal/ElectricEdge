@@ -26,7 +26,7 @@ const ElectricEdge = () => {
         <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.push("/signUp")} />
         <View className="flex flex-row justify-evenly mt-5 w-full">
           <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/explore")} />
-          <CustomButton title="Onboarding Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profileSetup")} />
+          <CustomButton title="Profile Picture Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profilePictureSetup")} />
         </View>
       </View>
       <StatusBar style="dark" />
