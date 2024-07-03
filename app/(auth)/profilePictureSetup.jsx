@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, Image, SafeAreaView, TouchableOpacity, Alert } from "react-native";
 import React, { useContext } from "react";
 import { useState } from "react";
 import CustomButton from "../../components/CustomButton";
@@ -9,7 +9,7 @@ import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from "../../config/UserContext";
 
-const profilePictureSetup = () => {
+const ProfilePictureSetup = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const { currentUser } = useContext(UserContext);
 
@@ -21,38 +21,36 @@ const profilePictureSetup = () => {
       quality: 1,
     });
 
-    console.log(userProfilePicture.assets[0].uri);
-
     if (!userProfilePicture.canceled && userProfilePicture.assets) {
       setProfilePicture(userProfilePicture.assets[0].uri);
     }
   };
 
   const handleSubmit = async (uri) => {
-    // Why are we using XMLHttpRequest? See:
-    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
     try {
-      const profilePictureRef = ref(storage, `profile_pictures/${currentUser.uid}`);
-      const result = await uploadBytes(profilePictureRef, profilePicture.assets[0].uri);
-      console.log(result)
-      console.log("Profile Picture Uploaded")
-      blob.close()
-      return await getDownloadURL(profilePictureRef)
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function (e) {
+          console.log(e);
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      });
 
-    } catch(error) {
+      const profilePictureRef = ref(storage, `profile_pictures/${currentUser.uid}`);
+      const result = await uploadBytes(profilePictureRef, blob);
+
+      console.log("Profile Picture Uploaded", result);
+      blob.close();
+      const downloadURL = await getDownloadURL(profilePictureRef);
+      console.log("Download URL:", downloadURL);
+      return downloadURL;
+    } catch (error) {
       console.error("Error uploading profile picture:", error);
     }
   };
@@ -86,4 +84,4 @@ const profilePictureSetup = () => {
   );
 };
 
-export default profilePictureSetup;
+export default ProfilePictureSetup;
