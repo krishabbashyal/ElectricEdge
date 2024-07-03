@@ -66,7 +66,7 @@ const ProfilePictureSetup = () => {
     } catch (error) {
       console.error("Error uploading profile picture:", error);
     }
-    
+    router.replace('/explore')
   };
 
   return (
@@ -89,7 +89,7 @@ const ProfilePictureSetup = () => {
             </TouchableOpacity>
           </View>
           <View className="flex flex-row justify-between mt-12">
-            <CustomButton title="Setup Later" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.push("/explore")} />
+            <CustomButton title="Setup Later" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.replace("/explore")} />
             <CustomButton title="Continue" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={() => handleSubmit(profilePicture)} />
           </View>
         </View>
