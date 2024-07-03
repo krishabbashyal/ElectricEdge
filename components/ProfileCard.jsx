@@ -11,11 +11,11 @@ const ProfileCard = () => {
       <View className="flex-row items-center">
         {currentUser && currentUser.photoURL ? (
           <Image
-            className="w-14 h-14 rounded-full"
+            className="w-16 h-16 rounded-full"
             source={{ uri: currentUser.photoURL }}
           />
         ) : (
-          <Image className="w-14 h-14 rounded-full" source={require(".././assets/images/profilePicture.png")} />
+          <Image className="w-16 h-16 rounded-full" source={require(".././assets/images/profilePicture.png")} />
         )}
         <View className="w-[256px]">
           <Text className="text-lg ml-4">{currentUser ? currentUser.uid : "No User"}</Text>
