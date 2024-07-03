@@ -15,7 +15,7 @@ const ElectricEdge = () => {
     }
   }
 
-  checkForUser()
+  // checkForUser()
 
   return (
     <SafeAreaView className="flex-1">
