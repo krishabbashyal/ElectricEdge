@@ -8,14 +8,15 @@ import * as ImagePicker from "expo-image-picker";
 import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from "../../config/UserContext";
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import { updateProfile } from "firebase/auth";
+import { Feather } from "@expo/vector-icons";
 
 const ProfilePictureSetup = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const { currentUser } = useContext(UserContext);
-  let uniqueID = uuidv4()
+  let uniqueID = uuidv4();
 
   const selectProfilePicture = async () => {
     let userProfilePicture = await ImagePicker.launchImageLibraryAsync({
@@ -32,7 +33,6 @@ const ProfilePictureSetup = () => {
 
   const handleSubmit = async (uri) => {
     try {
-
       // The URL path result.assets[0].uri returned by expo-image-picker is a reference to image data but not contains actual image data. As firebase expects to upload binary data, the app requires to fetch image binary data first.
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -47,7 +47,7 @@ const ProfilePictureSetup = () => {
         xhr.open("GET", uri, true);
         xhr.send(null);
       });
-      // End Explaination 
+      // End Explaination
 
       const profilePictureRef = ref(storage, `profile_pictures/${uniqueID}`);
       const result = await uploadBytes(profilePictureRef, blob);
@@ -58,15 +58,15 @@ const ProfilePictureSetup = () => {
       console.log("Download URL:", downloadURL);
       try {
         await updateProfile(currentUser, {
-          photoURL: downloadURL
-        })
+          photoURL: downloadURL,
+        });
       } catch (error) {
-        console.error("Unable to update user's profile picture on firebase", error)
+        console.error("Unable to update user's profile picture on firebase", error);
       }
     } catch (error) {
       console.error("Error uploading profile picture:", error);
     }
-    router.replace('/explore')
+    router.replace("/explore");
   };
 
   return (
@@ -83,8 +83,8 @@ const ProfilePictureSetup = () => {
               ) : (
                 <Image className="w-[350px] h-[350px] rounded-full border-[3px] border-slate-700" source={require("../../assets/images/profilePicture.png")} />
               )}
-              <View className="absolute ml-56 mt-72 rounded-xl bg-emerald-700">
-                <Text className="text-green-200 px-2 py-3">Upload Image</Text>
+              <View className="absolute ml-64 mt-72 h-12 w-12 items-center justify-center rounded-2xl bg-gray-700">
+                <Feather name="upload" size={30} color="white" />
               </View>
             </TouchableOpacity>
           </View>
