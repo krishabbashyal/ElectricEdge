@@ -1,7 +1,7 @@
 # ElectricEdge
 
 Welcome to ElectricEdge! This app is designed to provide a platform for electric vehicle (EV) owners and travelers to connect over electric chargers. ElectricEdge allows users to list their personal EV chargers and for travelers to search and book these chargers as they travel.
-Note: Application is just a prototype to showcase my development capabilities.
+**Note:** Application is just a prototype to showcase my development capabilities.
 
 ## Features
 
