@@ -13,6 +13,7 @@ Welcome to ElectricEdge! This app is designed to provide a platform for electric
 ## Tech Stack
 
 - **Frontend**: React Native
+- **State Management**: React Context
 - **Styling**: Tailwind CSS
 - **Backend**: Firebase
 - **Database**: Firestore
