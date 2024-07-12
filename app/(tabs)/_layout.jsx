@@ -8,7 +8,7 @@ const TabsLayout = () => {
   return (
     <UserProvider>
       <StatusBar style="dark" />
-      <Tabs screenOptions={{ tabBarActiveTintColor: "#3A8060", tabBarInactiveTintColor: "#A2AFA9", tabBarStyle: { backgroundColor: "#fff", height: 90,  } }}>
+      <Tabs screenOptions={{ tabBarActiveTintColor: "#3A8060", tabBarInactiveTintColor: "#A2AFA9", tabBarStyle: { backgroundColor: "#fff", height: 90 } }}>
         <Tabs.Screen
           name="explore"
           options={{
@@ -18,10 +18,26 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
+          name="saved"
+          options={{
+            title: "Saved",
+            tabBarIcon: ({ color }) => <Feather name="heart" size={28} color={color} />,
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="bookings"
+          options={{
+            title: "Bookings",
+            tabBarIcon: ({ color }) => <Feather name="check-circle" size={28} color={color}/>,
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
           name="profile"
           options={{
             title: "Profile",
-            tabBarIcon: ({ color }) => <Feather name="user" size={32} color={color} />,
+            tabBarIcon: ({ color }) => <Feather name="user" size={28} color={color} />,
             headerShown: false,
           }}
         />

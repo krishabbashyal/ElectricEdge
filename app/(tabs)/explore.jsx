@@ -4,7 +4,7 @@ import ExploreChargerCard from "../../components/ExploreChargerCard";
 import QuickCityFilterScroller from "../../components/QuickCityFilterScroller";
 import React from "react";
 
-const explore = () => {
+const Explore = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ExploreSearchAndFilter />
@@ -46,4 +46,4 @@ const explore = () => {
   );
 };
 
-export default explore;
+export default Explore;
