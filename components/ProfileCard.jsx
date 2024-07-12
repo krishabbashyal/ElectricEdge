@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { UserContext } from "../config/UserContext";
 import { db } from "../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import { router } from "expo-router";
 
 const ProfileCard = () => {
   const { currentUser } = useContext(UserContext);
@@ -25,7 +26,7 @@ const ProfileCard = () => {
 
   return (
     <View className="border-b border-gray-300">
-      <TouchableOpacity className="flex-row items-center pb-4 justify-between mt-9 h-20">
+      <TouchableOpacity className="flex-row items-center pb-4 justify-between mt-9 h-20" onPress={() => router.push("/profile/editProfile")}>
         <View className="flex-row items-center">
           {currentUser && currentUser.photoURL ? (
             <Image
@@ -37,7 +38,7 @@ const ProfileCard = () => {
           )}
           <View className="w-[256px]">
             <Text className="text-lg ml-4">{displayName}</Text>
-            <Text className="ml-4 text-slate-500">Show Profile</Text>
+            <Text className="ml-4 text-slate-500">Edit Profile</Text>
           </View>
         </View>
         <View className="mt-3">
