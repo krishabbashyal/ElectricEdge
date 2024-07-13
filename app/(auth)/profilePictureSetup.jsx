@@ -6,7 +6,7 @@ import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { storage } from "../../config/firebaseConfig";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { UserContext } from "../../config/UserContext";
 import "react-native-get-random-values";
 import * as uuid from "uuid";
@@ -47,7 +47,7 @@ const ProfilePictureSetup = () => {
     });
   
     const profilePictureRef = ref(storage, `profile_pictures/${uuid.v4()}`);
-    const result = await uploadBytes(profilePictureRef, blob);
+    const result = await uploadBytesResumable(profilePictureRef, blob);
     blob.close();
   
     return await getDownloadURL(profilePictureRef);

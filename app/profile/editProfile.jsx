@@ -10,15 +10,15 @@ import { Timestamp } from "firebase/firestore";
 import { UserContext } from "../../config/UserContext";
 import * as ImagePicker from "expo-image-picker";
 import { storage } from "../../config/firebaseConfig";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+import * as uuid from "uuid";
 import { updateProfile } from "firebase/auth";
 
 const editProfile = () => {
   const { currentUser } = useContext(UserContext);
   const [profilePicture, setProfilePicture] = useState(currentUser.photoURL);
-  let uniqueID = uuidv4();
+
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -75,34 +75,32 @@ const editProfile = () => {
     });
   };
 
-  const handleSubmit = async (uri) => {
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+      console.log("MADE IT TO HERE")
+    });
+  
+    const profilePictureRef = ref(storage, `profile_pictures/${uuid.v4()}`);
+    const result = await uploadBytesResumable(profilePictureRef, blob);
+    blob.close();
+  
+    return await getDownloadURL(profilePictureRef);
+  }
+
+  const handleSubmit = async () => {
     try {
-      // The URL path result.assets[0].uri returned by expo-image-picker is a reference to image data but not contains actual image data. As firebase expects to upload binary data, the app requires to fetch image binary data first.
-      // const blob = await new Promise((resolve, reject) => {
-      //   const xhr = new XMLHttpRequest();
-      //   xhr.onload = function () {
-      //     resolve(xhr.response);
-      //   };
-      //   xhr.onerror = function (e) {
-      //     console.log(e);
-      //     reject(new TypeError("Network request failed"));
-      //   };
-      //   xhr.responseType = "blob";
-      //   xhr.open("GET", uri, true);
-      //   xhr.send(null);
-      // });
-      // End Explaination
-
-      const profilePictureData = await fetch(profilePicture)
-      const bytes = await profilePictureData.blob() 
-
-      const profilePictureRef = ref(storage, `profile_pictures/${uniqueID}`);
-      const result = await uploadBytes(profilePictureRef, bytes);
-
-
-      bytes.close();
-
-      const downloadURL = await getDownloadURL(profilePictureRef);
+      const downloadURL = await uploadImageAsync(profilePicture)
       try {
         await updateProfile(currentUser, {
           photoURL: downloadURL,
@@ -113,7 +111,6 @@ const editProfile = () => {
     } catch (error) {
       console.error("Error uploading profile picture:", error);
     }
-    router.replace("/explore");
 
     const displayNameValid = displayNameRef.current.validate();
     const phoneNumberValid = phoneNumberRef.current.validate();
