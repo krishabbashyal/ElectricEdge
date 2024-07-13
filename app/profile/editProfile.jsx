@@ -1,18 +1,24 @@
 import { SafeAreaView, View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
-
 import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 import { router } from "expo-router";
 import { db } from "../../config/firebaseConfig";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { UserContext } from "../../config/UserContext";
+import * as ImagePicker from "expo-image-picker";
+import { storage } from "../../config/firebaseConfig";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+import { updateProfile } from "firebase/auth";
 
 const editProfile = () => {
   const { currentUser } = useContext(UserContext);
   const [profilePicture, setProfilePicture] = useState(currentUser.photoURL);
+  let uniqueID = uuidv4();
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -49,9 +55,6 @@ const editProfile = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(formData.displayName, formData.phoneNumber);
-  }, [formData]);
 
   const displayNameRef = useRef(null);
   const phoneNumberRef = useRef(null);
@@ -72,7 +75,46 @@ const editProfile = () => {
     });
   };
 
-  const submitForm = async () => {
+  const handleSubmit = async (uri) => {
+    try {
+      // The URL path result.assets[0].uri returned by expo-image-picker is a reference to image data but not contains actual image data. As firebase expects to upload binary data, the app requires to fetch image binary data first.
+      // const blob = await new Promise((resolve, reject) => {
+      //   const xhr = new XMLHttpRequest();
+      //   xhr.onload = function () {
+      //     resolve(xhr.response);
+      //   };
+      //   xhr.onerror = function (e) {
+      //     console.log(e);
+      //     reject(new TypeError("Network request failed"));
+      //   };
+      //   xhr.responseType = "blob";
+      //   xhr.open("GET", uri, true);
+      //   xhr.send(null);
+      // });
+      // End Explaination
+
+      const profilePictureData = await fetch(profilePicture)
+      const bytes = await profilePictureData.blob() 
+
+      const profilePictureRef = ref(storage, `profile_pictures/${uniqueID}`);
+      const result = await uploadBytes(profilePictureRef, bytes);
+
+
+      bytes.close();
+
+      const downloadURL = await getDownloadURL(profilePictureRef);
+      try {
+        await updateProfile(currentUser, {
+          photoURL: downloadURL,
+        });
+      } catch (error) {
+        console.error("Unable to update user's profile picture on firebase", error);
+      }
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    }
+    router.replace("/explore");
+
     const displayNameValid = displayNameRef.current.validate();
     const phoneNumberValid = phoneNumberRef.current.validate();
 
@@ -88,49 +130,57 @@ const editProfile = () => {
         <View className="mt-16">
           <Text className="text-3xl font-semibold">Edit profile</Text>
         </View>
+        <View className="mt-2">
+          <Text className="text-base">The information you share will be used across ElectricEdge to help charger hosts get to know you.</Text>
+        </View>
 
-        <View className="flex items-center mt-4">
+        <View className="flex items-center mt-4 shadow-lg border-b pb-6 border-gray-300 shadow-gray-400">
           <TouchableOpacity onPress={selectProfilePicture}>
             {profilePicture ? (
-              <Image className="w-[250px] h-[250px] rounded-full border-[3px] border-slate-700" source={{ uri: profilePicture }} />
+              <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={{ uri: profilePicture }} />
             ) : (
-              <Image className="w-[250px] h-[250px] rounded-full border-[3px] border-slate-700" source={require("../../assets/images/profilePicture.png")} />
+              <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={require("../../assets/images/profilePicture.png")} />
             )}
-            <View className="absolute ml-64 mt-72 h-12 w-12 items-center justify-center rounded-2xl bg-gray-700">
-              <Feather name="upload" size={30} color="white" />
+            <View className="absolute ml-[196px] mt-[200px] h-11 w-11 items-center justify-center rounded-2xl bg-gray-700">
+              <Feather name="upload" size={28} color="white" />
             </View>
           </TouchableOpacity>
         </View>
 
-        <CustomInputField
-          ref={displayNameRef}
-          label="Display Name"
-          placeholder="Display Name"
-          payload={formData.displayName}
-          validationType="String"
-          errorMessage="Display name must be at least 3 characters"
-          preventSpaces={true}
-          sendDataToParent={handleDisplayNameChange}
-          customStyles="mt-2"
-          defaultValue={formData.displayName}
-          backgroundColor="bg-[#F2F2F2]"
-        />
-        <CustomInputField
-          ref={phoneNumberRef}
-          label="Phone Number"
-          placeholder="Phone Number"
-          payload={formData.phoneNumber}
-          validationType="PhoneNumber"
-          errorMessage="Please enter a valid phone number"
-          preventSpaces={true}
-          numericOnly={true}
-          sendDataToParent={handlePhoneNumberChange}
-          customStyles="pb-2"
-          defaultValue={formData.phoneNumber}
-          backgroundColor="bg-[#F2F2F2]"
-        />
+        <View className="mt-2">
+          <CustomInputField
+            ref={displayNameRef}
+            label="Display Name"
+            placeholder="Display Name"
+            payload={formData.displayName}
+            validationType="String"
+            errorMessage="Display name must be at least 3 characters"
+            preventSpaces={true}
+            sendDataToParent={handleDisplayNameChange}
+            customStyles="mt-2"
+            defaultValue={formData.displayName}
+            backgroundColor="bg-[#F2F2F2]"
+          />
+          <CustomInputField
+            ref={phoneNumberRef}
+            label="Phone Number"
+            placeholder="Phone Number"
+            payload={formData.phoneNumber}
+            validationType="PhoneNumber"
+            errorMessage="Please enter a valid phone number"
+            preventSpaces={true}
+            numericOnly={true}
+            sendDataToParent={handlePhoneNumberChange}
+            customStyles="pb-2"
+            defaultValue={formData.phoneNumber}
+            backgroundColor="bg-[#F2F2F2]"
+          />
+        </View>
 
-        <CustomButton title="Save information" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
+        <View className="flex flex-row justify-between mt-">
+          <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.replace("/profile")} />
+          <CustomButton title="Save Information" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={() => handleSubmit(profilePicture)} />
+        </View>
       </View>
     </SafeAreaView>
   );
