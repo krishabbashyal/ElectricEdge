@@ -117,7 +117,7 @@ const editProfile = () => {
 
     if (displayNameValid && phoneNumberValid) {
       sendDataToFirebase(formData.displayName, formData.phoneNumber, currentUser);
-      router.push("profile");
+      router.replace("profile");
     }
   };
 

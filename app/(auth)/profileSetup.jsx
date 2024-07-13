@@ -67,7 +67,7 @@ const ProfileSetup = () => {
 
     if (displayNameValid && phoneNumberValid && termsAgreed) {
       sendDataToFirebase(formData.displayName, formData.phoneNumber, termsAgreed, currentUser);
-      router.push("profilePictureSetup");
+      router.replace("profilePictureSetup");
     }
   };
 
