@@ -15,7 +15,6 @@ const ProfileCard = () => {
     const profileSnap = await getDoc(profileRef)
 
     if (profileSnap.exists()){
-      console.log(profileSnap.data())
       setDisplayName(profileSnap.data().display_name)
     }
   }

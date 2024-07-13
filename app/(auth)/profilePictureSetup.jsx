@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, TouchableOpacity, Alert } from "react-native";
+import { View, Text, Image, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { useState } from "react";
 import CustomButton from "../../components/CustomButton";
@@ -40,7 +40,7 @@ const ProfilePictureSetup = () => {
           resolve(xhr.response);
         };
         xhr.onerror = function (e) {
-          console.log(e);
+     
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -52,10 +52,8 @@ const ProfilePictureSetup = () => {
       const profilePictureRef = ref(storage, `profile_pictures/${uniqueID}`);
       const result = await uploadBytes(profilePictureRef, blob);
 
-      console.log("Profile Picture Uploaded", result);
       blob.close();
       const downloadURL = await getDownloadURL(profilePictureRef);
-      console.log("Download URL:", downloadURL);
       try {
         await updateProfile(currentUser, {
           photoURL: downloadURL,
