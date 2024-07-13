@@ -5,7 +5,7 @@ import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 import { router } from "expo-router";
 import { db } from "../../config/firebaseConfig";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { UserContext } from "../../config/UserContext";
 
@@ -18,21 +18,21 @@ const editProfile = () => {
 
   });
 
-  const getDisplayName = async () => {
-    const profileRef = doc(db, "profiles", currentUser.uid);
-    const profileSnap = await getDoc(profileRef);
-  
-    if (profileSnap.exists()){
-      const profileData = profileSnap.data();
-      setFormData(prevData => ({
-        ...prevData,
-        displayName: profileData.display_name,
-        phoneNumber: profileData.phone_number
-      }));
-    }
-  }
   
   useEffect(() => {
+    const getDisplayName = async () => {
+      const profileRef = doc(db, "profiles", currentUser.uid);
+      const profileSnap = await getDoc(profileRef);
+    
+      if (profileSnap.exists()){
+        const profileData = profileSnap.data();
+        setFormData(prevData => ({
+          ...prevData,
+          displayName: profileData.display_name,
+          phoneNumber: profileData.phone_number
+        }));
+      }
+    }
     getDisplayName();
   }, []);
 
@@ -53,7 +53,7 @@ const editProfile = () => {
   };
 
   const sendDataToFirebase = async (displayName, phoneNumber, currentUser) => {
-    await setDoc(doc(db, "profiles", currentUser.uid), {
+    await updateDoc(doc(db, "profiles", currentUser.uid), {
       display_name: displayName,
       phone_number: phoneNumber,
       date_created: Timestamp.fromDate(new Date()),
@@ -66,7 +66,7 @@ const editProfile = () => {
 
     if (displayNameValid && phoneNumberValid) {
       sendDataToFirebase(formData.displayName, formData.phoneNumber, currentUser);
-      router.push("profilePictureSetup");
+      router.push("profile");
     }
   };
 
@@ -76,7 +76,7 @@ const editProfile = () => {
 
         <View className="mx-8">
         <View className="mt-16">
-          <Text className="text-3xl font-semibold">Edit profile information</Text>
+          <Text className="text-3xl font-semibold">Edit profile</Text>
         </View>
           <CustomInputField
             ref={displayNameRef}
@@ -108,7 +108,7 @@ const editProfile = () => {
             
           />
 
-          <CustomButton title="Update information" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
+          <CustomButton title="Save information" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
         </View>
       </View>
     </SafeAreaView>

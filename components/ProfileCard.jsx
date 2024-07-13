@@ -20,9 +20,8 @@ const ProfileCard = () => {
     }
   }
 
-  useEffect(() => {
-    getDisplayName()
-  }, [])
+  getDisplayName()
+
 
   return (
     <View className="border-b border-gray-300">
