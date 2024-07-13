@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useImperativeHandle, useEffect } from "react";
 
-const CustomInputField = forwardRef(({ label, placeholder, defaultValue, errorMessage, keyboardType, customStyles, validationType, preventSpaces, numericOnly, sendDataToParent }, ref) => {
+const CustomInputField = forwardRef(({ label, placeholder, defaultValue, errorMessage, keyboardType, customStyles, validationType, preventSpaces, numericOnly, sendDataToParent, backgroundColor }, ref) => {
   const [inputError, setInputError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(defaultValue || "");
@@ -82,7 +82,7 @@ const CustomInputField = forwardRef(({ label, placeholder, defaultValue, errorMe
     <View className={`mb-4 ${customStyles}`}>
       <Text className="font-medium mb-1.5 text-lg">{label}</Text>
       <TextInput
-        className={`h-12 w-full px-4 border focus:border-2 rounded-lg ${borderColor} bg-white placeholder:font-medium`}
+        className={`h-12 w-full px-4 border focus:border-2 rounded-lg ${borderColor} bg-white ${backgroundColor} placeholder:font-medium`}
         placeholder={placeholder}
         secureTextEntry={label === "Password" && !showPassword}
         keyboardType={keyboardType}
