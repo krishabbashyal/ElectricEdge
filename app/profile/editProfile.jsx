@@ -1,7 +1,6 @@
 import { SafeAreaView, View, Text } from "react-native";
 import React, { useState, useRef, useContext, useEffect } from "react";
 
-import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 import { router } from "expo-router";
@@ -16,6 +15,7 @@ const editProfile = () => {
   const [formData, setFormData] = useState({
     displayName: "",
     phoneNumber: ""
+
   });
 
   const getDisplayName = async () => {
@@ -71,10 +71,13 @@ const editProfile = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View>
-        <ElectricEdgeHeader customStyles="mt-8" />
+
         <View className="mx-8">
+        <View className="mt-16">
+          <Text className="text-3xl font-semibold">Edit profile information</Text>
+        </View>
           <CustomInputField
             ref={displayNameRef}
             label="Display Name"
@@ -86,7 +89,9 @@ const editProfile = () => {
             sendDataToParent={handleDisplayNameChange}
             customStyles="mt-2"
             defaultValue = {formData.displayName}
-          />
+            backgroundColor = "bg-[#F2F2F2]"
+            
+            />
           <CustomInputField
             ref={phoneNumberRef}
             label="Phone Number"
@@ -99,7 +104,8 @@ const editProfile = () => {
             sendDataToParent={handlePhoneNumberChange}
             customStyles="pb-2"
             defaultValue = {formData.phoneNumber}
-
+            backgroundColor = "bg-[#F2F2F2]"
+            
           />
 
           <CustomButton title="Update information" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
