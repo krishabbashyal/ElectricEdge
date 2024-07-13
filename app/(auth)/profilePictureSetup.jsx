@@ -9,14 +9,14 @@ import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UserContext } from "../../config/UserContext";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+import * as uuid from "uuid";
 import { updateProfile } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 
 const ProfilePictureSetup = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const { currentUser } = useContext(UserContext);
-  let uniqueID = uuidv4();
+
 
   const selectProfilePicture = async () => {
     let userProfilePicture = await ImagePicker.launchImageLibraryAsync({
@@ -31,29 +31,31 @@ const ProfilePictureSetup = () => {
     }
   };
 
-  const handleSubmit = async (uri) => {
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+  
+    const profilePictureRef = ref(storage, `profile_pictures/${uuid.v4()}`);
+    const result = await uploadBytes(profilePictureRef, blob);
+    blob.close();
+  
+    return await getDownloadURL(profilePictureRef);
+  }
+
+  const handleSubmit = async () => {
     try {
-      // The URL path result.assets[0].uri returned by expo-image-picker is a reference to image data but not contains actual image data. As firebase expects to upload binary data, the app requires to fetch image binary data first.
-      const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-          resolve(xhr.response);
-        };
-        xhr.onerror = function (e) {
-     
-          reject(new TypeError("Network request failed"));
-        };
-        xhr.responseType = "blob";
-        xhr.open("GET", uri, true);
-        xhr.send(null);
-      });
-      // End Explaination
-
-      const profilePictureRef = ref(storage, `profile_pictures/${uniqueID}`);
-      const result = await uploadBytes(profilePictureRef, blob);
-
-      blob.close();
-      const downloadURL = await getDownloadURL(profilePictureRef);
+      const downloadURL = await uploadImageAsync(profilePicture)
       try {
         await updateProfile(currentUser, {
           photoURL: downloadURL,
