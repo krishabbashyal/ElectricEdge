@@ -35,6 +35,10 @@ const editProfile = () => {
   useEffect(() => {
     getDisplayName();
   }, []);
+
+  useEffect(() => {
+    console.log(formData.displayName, formData.phoneNumber)
+  }, [formData])
   
 
   const displayNameRef = useRef(null);
@@ -81,6 +85,7 @@ const editProfile = () => {
             preventSpaces={true}
             sendDataToParent={handleDisplayNameChange}
             customStyles="mt-2"
+            defaultValue = {formData.displayName}
           />
           <CustomInputField
             ref={phoneNumberRef}
@@ -93,6 +98,8 @@ const editProfile = () => {
             numericOnly={true}
             sendDataToParent={handlePhoneNumberChange}
             customStyles="pb-2"
+            defaultValue = {formData.phoneNumber}
+
           />
 
           <CustomButton title="Update information" buttonStyles="bg-EE-Green mt-8" textStyles="text-white" handlePress={submitForm} />
