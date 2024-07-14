@@ -172,7 +172,7 @@ const editProfile = () => {
               />
             </View>
             <View className="flex flex-row justify-between mt-4">
-              <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.replace("/profile")} />
+              <CustomButton title="Go Back" buttonStyles="w-44 bg-gray-900" textStyles="text-white" handlePress={() => router.back()} />
               <CustomButton title="Save Information" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={() => handleSubmit(profilePicture)} />
             </View>
           </View>
