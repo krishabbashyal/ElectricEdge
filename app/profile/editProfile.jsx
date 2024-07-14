@@ -122,7 +122,7 @@ const editProfile = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "200px" : "200px"} style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <View className="mx-8">
           <View className="mt-16">
             <Text className="text-3xl font-semibold">Edit profile</Text>
