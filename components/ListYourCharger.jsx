@@ -4,7 +4,7 @@ import React from "react";
 
 const ListYourCharger = () => {
   return (
-    <TouchableOpacity onPress={router.push('/profile/chargerListing')}>
+    <TouchableOpacity onPress={() => router.push('/profile/chargerListing')}>
       <View className="mt-6 flex-row rounded-lg h-28 w-full border bg-white shadow-md border-slate-100">
         <View className="mt-4 ml-4 flex-col">
           <Text className="text-[17px] font-semibold">List your charger</Text>
