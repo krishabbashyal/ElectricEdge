@@ -43,6 +43,7 @@ const ElectricEdge = () => {
           <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/explore")} />
           <CustomButton title="Profile Picture Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/profilePictureSetup")} />
           <CustomButton title="Edit Profile Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/profile/editProfile")} />
+          <CustomButton title="List Charger Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/profile/chargerListing")} />
 
         </View>
       </View>
