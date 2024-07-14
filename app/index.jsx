@@ -23,11 +23,11 @@ const ElectricEdge = () => {
         <ElectricEdgeHeader />
         <Image className="w-full h-96" source={require("../assets/images/heroImage.png")} />
         <Text className="text-2xl text-center mx-6 font-medium">Charge Smarter, Drive Further, Enhance Your Journey.</Text>
-        <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.push("/signUp")} />
+        <CustomButton title="Get Started" textStyles="text-white" buttonStyles="mt-6 mx-6 bg-EE-Green" handlePress={() => router.replace("/signUp")} />
         <View className="flex flex-row justify-evenly mt-5 w-full">
-          <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/explore")} />
-          <CustomButton title="Profile Picture Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profilePictureSetup")} />
-          <CustomButton title="Edit Profile Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.push("/profile/editProfile")} />
+          <CustomButton title="Explore Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/explore")} />
+          <CustomButton title="Profile Picture Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/profilePictureSetup")} />
+          <CustomButton title="Edit Profile Page" textStyles="text-xs font-medium" buttonStyles="h-7 w-32 bg-gray-300" handlePress={() => router.replace("/profile/editProfile")} />
 
         </View>
       </View>
