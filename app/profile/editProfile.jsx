@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
