@@ -9,6 +9,8 @@ const RootLayout = () => {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="profile/editProfile" options={{ headerShown: false }} />
+        <Stack.Screen name="profile/chargerListing" options={{ headerShown: true }} />
+
       </Stack>
     </UserProvider>
   );
