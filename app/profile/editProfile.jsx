@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, TouchableOpacity, Image } from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity, Image, KeyboardAvoidingView, StyleSheet } from "react-native";
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
@@ -13,12 +13,12 @@ import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import "react-native-get-random-values";
 import * as uuid from "uuid";
+import { Platform } from "react-native";
 import { updateProfile } from "firebase/auth";
 
 const editProfile = () => {
   const { currentUser } = useContext(UserContext);
   const [profilePicture, setProfilePicture] = useState(currentUser.photoURL);
-
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -55,7 +55,6 @@ const editProfile = () => {
     }
   };
 
-
   const displayNameRef = useRef(null);
   const phoneNumberRef = useRef(null);
 
@@ -88,19 +87,19 @@ const editProfile = () => {
       xhr.responseType = "blob";
       xhr.open("GET", uri, true);
       xhr.send(null);
-      console.log("MADE IT TO HERE")
+      console.log("MADE IT TO HERE");
     });
-  
+
     const profilePictureRef = ref(storage, `profile_pictures/${uuid.v4()}`);
     const result = await uploadBytesResumable(profilePictureRef, blob);
     blob.close();
-  
+
     return await getDownloadURL(profilePictureRef);
   }
 
   const handleSubmit = async () => {
     try {
-      const downloadURL = await uploadImageAsync(profilePicture)
+      const downloadURL = await uploadImageAsync(profilePicture);
       try {
         await updateProfile(currentUser, {
           photoURL: downloadURL,
@@ -123,64 +122,69 @@ const editProfile = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <View className="mx-8">
-        <View className="mt-16">
-          <Text className="text-3xl font-semibold">Edit profile</Text>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "200px" : "200px"} style={styles.container}>
+        <View className="mx-8">
+          <View className="mt-16">
+            <Text className="text-3xl font-semibold">Edit profile</Text>
+          </View>
+          <View className="mt-2">
+            <Text className="text-base">The information you share will be used across ElectricEdge to help charger hosts get to know you.</Text>
+          </View>
+          <View className="flex items-center mt-4 shadow-lg border-b pb-6 border-gray-300 shadow-gray-400">
+            <TouchableOpacity onPress={selectProfilePicture}>
+              {profilePicture ? (
+                <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={{ uri: profilePicture }} />
+              ) : (
+                <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={require("../../assets/images/profilePicture.png")} />
+              )}
+              <View className="absolute ml-[196px] mt-[200px] h-11 w-11 items-center justify-center rounded-2xl bg-gray-700">
+                <Feather name="upload" size={28} color="white" />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View className="mt-2">
+            <CustomInputField
+              ref={displayNameRef}
+              label="Display Name"
+              placeholder="Display Name"
+              payload={formData.displayName}
+              validationType="String"
+              errorMessage="Display name must be at least 3 characters"
+              preventSpaces={true}
+              sendDataToParent={handleDisplayNameChange}
+              customStyles="mt-2"
+              defaultValue={formData.displayName}
+              backgroundColor="bg-[#F2F2F2]"
+            />
+            <CustomInputField
+              ref={phoneNumberRef}
+              label="Phone Number"
+              placeholder="Phone Number"
+              payload={formData.phoneNumber}
+              validationType="PhoneNumber"
+              errorMessage="Please enter a valid phone number"
+              preventSpaces={true}
+              numericOnly={true}
+              sendDataToParent={handlePhoneNumberChange}
+              customStyles="pb-2"
+              defaultValue={formData.phoneNumber}
+              backgroundColor="bg-[#F2F2F2]"
+            />
+          </View>
+          <View className="flex flex-row justify-between mt-">
+            <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.replace("/profile")} />
+            <CustomButton title="Save Information" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={() => handleSubmit(profilePicture)} />
+          </View>
         </View>
-        <View className="mt-2">
-          <Text className="text-base">The information you share will be used across ElectricEdge to help charger hosts get to know you.</Text>
-        </View>
-
-        <View className="flex items-center mt-4 shadow-lg border-b pb-6 border-gray-300 shadow-gray-400">
-          <TouchableOpacity onPress={selectProfilePicture}>
-            {profilePicture ? (
-              <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={{ uri: profilePicture }} />
-            ) : (
-              <Image className="w-[256px] h-[256px] rounded-full border-2 border-slate-700" source={require("../../assets/images/profilePicture.png")} />
-            )}
-            <View className="absolute ml-[196px] mt-[200px] h-11 w-11 items-center justify-center rounded-2xl bg-gray-700">
-              <Feather name="upload" size={28} color="white" />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View className="mt-2">
-          <CustomInputField
-            ref={displayNameRef}
-            label="Display Name"
-            placeholder="Display Name"
-            payload={formData.displayName}
-            validationType="String"
-            errorMessage="Display name must be at least 3 characters"
-            preventSpaces={true}
-            sendDataToParent={handleDisplayNameChange}
-            customStyles="mt-2"
-            defaultValue={formData.displayName}
-            backgroundColor="bg-[#F2F2F2]"
-          />
-          <CustomInputField
-            ref={phoneNumberRef}
-            label="Phone Number"
-            placeholder="Phone Number"
-            payload={formData.phoneNumber}
-            validationType="PhoneNumber"
-            errorMessage="Please enter a valid phone number"
-            preventSpaces={true}
-            numericOnly={true}
-            sendDataToParent={handlePhoneNumberChange}
-            customStyles="pb-2"
-            defaultValue={formData.phoneNumber}
-            backgroundColor="bg-[#F2F2F2]"
-          />
-        </View>
-
-        <View className="flex flex-row justify-between mt-">
-          <CustomButton title="Go Back" buttonStyles="w-44 bg-slate-700" textStyles="text-white" handlePress={() => router.replace("/profile")} />
-          <CustomButton title="Save Information" buttonStyles="bg-EE-Green w-44" textStyles="text-white" handlePress={() => handleSubmit(profilePicture)} />
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
 
 export default editProfile;
