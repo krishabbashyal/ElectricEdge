@@ -18,7 +18,22 @@ const cities = [
   { city: "San Antonio", state: "TX" },
   { city: "San Diego", state: "CA" },
   { city: "Dallas", state: "TX" },
-  { city: "San Jose", state: "CA" }
+  { city: "San Jose", state: "CA" },
+  { city: "Austin", state: "TX" },
+  { city: "Jacksonville", state: "FL" },
+  { city: "Fort Worth", state: "TX" },
+  { city: "Columbus", state: "OH" },
+  { city: "Charlotte", state: "NC" },
+  { city: "San Francisco", state: "CA" },
+  { city: "Indianapolis", state: "IN" },
+  { city: "Seattle", state: "WA" },
+  { city: "Denver", state: "CO" },
+  { city: "Washington", state: "DC" },
+  { city: "Boston", state: "MA" },
+  { city: "El Paso", state: "TX" },
+  { city: "Nashville", state: "TN" },
+  { city: "Detroit", state: "MI" },
+  { city: "Oklahoma City", state: "OK" }
 ];
 
 // Random number generator function
@@ -37,8 +52,7 @@ const addData = async (data) => {
         charger_type: chargerType,
         hourly_rate: hourlyRate,
         city: location.city,
-        state: location.state,
-        host_display_name: "GPT-4o"
+        state: location.state
       });
 
       console.log(`Document ${i + 1} added with ID: ${docRef.id}`);
