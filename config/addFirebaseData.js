@@ -1,5 +1,5 @@
-import { db } from "./firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+const { db } = require("./firebaseConfig");
+const { collection, addDoc } = require("firebase/firestore");
 
 // Example data arrays
 const chargerTypes = [
