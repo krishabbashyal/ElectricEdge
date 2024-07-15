@@ -70,6 +70,9 @@ const chargerListing = () => {
   // Random number generator function
   const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+  const getRandomHourlyRate = () => (Math.random() * (25 - 5) + 5).toFixed(2);
+
+
   // Random boolean generator function
   const getRandomBoolean = () => Math.random() >= 0.5;
 
@@ -101,7 +104,7 @@ const chargerListing = () => {
     try {
       for (let i = 0; i < data.length; i++) {
         const chargerType = chargerTypes[getRandomNumber(0, chargerTypes.length - 1)];
-        const hourlyRate = getRandomNumber(5, 25);
+        const hourlyRate = getRandomHourlyRate();
         const location = cities[getRandomNumber(0, cities.length - 1)];
         const description = getRandomDescription();
         const selfCheckIn = getRandomBoolean();
