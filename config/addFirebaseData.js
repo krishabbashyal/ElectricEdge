@@ -37,7 +37,8 @@ const addData = async (data) => {
         charger_type: chargerType,
         hourly_rate: hourlyRate,
         city: location.city,
-        state: location.state
+        state: location.state,
+        host_display_name: "GPT-4o"
       });
 
       console.log(`Document ${i + 1} added with ID: ${docRef.id}`);
