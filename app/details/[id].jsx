@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import ChargerHostInformation from "../../components/ChargerHostInformation";
 import ChargerListingDescription from "../../components/ChargerListingDescription";
 import ChargerListingOverview from "../../components/ChargerListingOverview";
+import ChargerCheckInMethod from "../../components/ChargerCheckInMethod";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
@@ -34,6 +35,7 @@ const Details = () => {
       <View className="mx-6">
         <ChargerListingOverview chargerType={chargerData.charger_type} city={chargerData.city} state={chargerData.state} />
         <ChargerHostInformation hostDisplayName={chargerData.host_display_name} hostProfilePicture={chargerData.host_image} />
+        <ChargerCheckInMethod allowSelfCheckIn={chargerData.self_check_in}/>
         <ChargerListingDescription description={chargerData.description} />
       </View>
     </>
