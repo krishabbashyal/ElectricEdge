@@ -5,7 +5,6 @@ const ExploreChargerCard = ({ chargerType, chargerCity, chargerState, chargerRat
   return (
     <View className={`mb-8 ${cardStyles}`}>
       <View className="text-left">
-        <TouchableOpacity activeOpacity={0.7}>
           <Image className="w-full h-[350px] rounded-xl" source={{uri: imageURL}} />
           <View className="pb-2">
             <Text className="text-xl font-bold mt-3">{chargerType}</Text>
@@ -19,7 +18,6 @@ const ExploreChargerCard = ({ chargerType, chargerCity, chargerState, chargerRat
               <Text className="font-normal"> per hour</Text>
             </Text>
           </View>
-        </TouchableOpacity>
       </View>
     </View>
   );
