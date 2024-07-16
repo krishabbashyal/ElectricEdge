@@ -36,12 +36,12 @@ const Details = () => {
               Charging station in <Text className='font-bold text-EE-Green'>{chargerData.city}, {chargerData.state}</Text>
             </Text>
           </View>
-          <View className="mt-4 border-t  border-gray-300 pt-4">
-            <Text className="text-base">{chargerData.description}</Text>
-          </View>
           <View className="mt-4 flex flex-row">
             <Image className="h-14 border w-14 rounded-full" source={{ uri: chargerData.host_image }}/>
             <Text>Hosted by {chargerData.host_display_name}</Text>
+          </View>
+          <View className="mt-4 border-t  border-gray-300 pt-4">
+            <Text className="text-base">{chargerData.description}</Text>
           </View>
         </View>
       </View>
