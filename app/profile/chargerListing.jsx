@@ -7,7 +7,7 @@ import { db } from '../../config/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 
 const chargerListing = () => {
-  // Example data arrays
+
   const chargerTypes = [
     "Level 2: 240-Volt Outlet",
     "Level 1: 120-Volt Outlet",
@@ -110,14 +110,14 @@ const chargerListing = () => {
         const selfCheckIn = getRandomBoolean();
 
         const docRef = await addDoc(collection(db, "chargers"), {
-          charger_image: "gs://electricedge-5e87a.appspot.com/charger_images/OAI User Content.jpeg",
+          charger_image: "https://firebasestorage.googleapis.com/v0/b/electricedge-5e87a.appspot.com/o/charger_images%2FOAI%20User%20Content.jpeg?alt=media&token=e4065099-1f11-4224-a78e-bcdc64761fe7",
           charger_type: chargerType,
           hourly_rate: hourlyRate,
           city: location.city,
           state: location.state,
           description: description,
           host_display_name: "GPT-4o",
-          host_image: "gs://electricedge-5e87a.appspot.com/profile_pictures/OpenAI logo.jpeg",
+          host_image: "https://firebasestorage.googleapis.com/v0/b/electricedge-5e87a.appspot.com/o/profile_pictures%2FOpenAI%20logo.jpeg?alt=media&token=ec93b64e-12e1-4f32-a618-7da0c9146088",
           self_check_in: selfCheckIn,
           amenities: []
         });
