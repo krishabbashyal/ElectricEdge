@@ -31,7 +31,7 @@ Welcome to ElectricEdge! This app is designed to provide a platform for electric
 1. **Sign Up** and create a profile.
 2. **Search for Chargers**: Use the search functionality to find chargers along your travel route.
 3. **Book a Charger**: Select a charger and choose your desired date and time for charging. (Note: This is a demo feature, and no real booking or payment processing will occur.)
-4. **Leave Reviews**: After using a charger, leave a review to help other users make informed decisions.
+
 
 ## License
 
