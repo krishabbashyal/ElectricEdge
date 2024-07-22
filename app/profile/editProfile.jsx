@@ -13,6 +13,7 @@ import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import "react-native-get-random-values";
 import * as uuid from "uuid";
+import BackButton from "../../components/BackButton";
 
 import { updateProfile } from "firebase/auth";
 
@@ -123,6 +124,7 @@ const editProfile = () => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1 }}>
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <BackButton customStyles={`mt-16 ml-5`}/>
           <View className="mx-8 justify-end mb-4">
             <View className="mt-16">
               <Text className="text-3xl font-semibold">Edit profile</Text>
