@@ -9,6 +9,7 @@ import ChargerListingDescription from "../../components/ChargerListingDescriptio
 import ChargerListingOverview from "../../components/ChargerListingOverview";
 import ChargerCheckInMethod from "../../components/ChargerCheckInMethod";
 import ChargerBookBanner from "../../components/ChargerBookBanner";
+import BackButton from "../../components/BackButton";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
@@ -33,13 +34,13 @@ const Details = () => {
     <>
       <StatusBar style="light" />
       <ScrollView bounces="false">
+      <BackButton customStyles={"mt-16 ml-5"} />
         <Image className="w-full h-[400px]" source={{ uri: chargerData.charger_image }} />
         <View className="mx-6 pb-8">
           <ChargerListingOverview chargerType={chargerData.charger_type} city={chargerData.city} state={chargerData.state} />
           <ChargerHostInformation hostDisplayName={chargerData.host_display_name} hostProfilePicture={chargerData.host_image} />
           <ChargerCheckInMethod allowSelfCheckIn={chargerData.self_check_in} />
           <ChargerListingDescription description={chargerData.description} />
-
         </View>
       </ScrollView>
       <View className="fixed bottom-0">
