@@ -10,6 +10,7 @@ import ChargerListingOverview from "../../components/ChargerListingOverview";
 import ChargerCheckInMethod from "../../components/ChargerCheckInMethod";
 import ChargerBookBanner from "../../components/ChargerBookBanner";
 import BackButton from "../../components/BackButton";
+import FavoriteButton from "../../components/FavoriteButton";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
@@ -35,6 +36,7 @@ const Details = () => {
       <StatusBar style="light" />
       <ScrollView bounces="false">
       <BackButton customStyles={"mt-16 ml-5"} />
+      <FavoriteButton customStyles={"mt-16 ml-14"}/>
         <Image className="w-full h-[400px]" source={{ uri: chargerData.charger_image }} />
         <View className="mx-6 pb-8">
           <ChargerListingOverview chargerType={chargerData.charger_type} city={chargerData.city} state={chargerData.state} />
