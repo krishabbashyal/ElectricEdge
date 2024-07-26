@@ -9,7 +9,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <View className="mx-8">
+      <View className="mx-6">
         <View className="mt-16">
           <Text className="text-3xl font-semibold">Profile</Text>
         </View>
