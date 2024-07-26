@@ -46,7 +46,7 @@ const Explore = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ExploreSearchAndFilter />
       <View className="mx-6 h-full mt-2">
-        <ScrollView className="flex-1">
+        <ScrollView className="flex-1" showsVerticalScrollIndicator="false" >
           {chargers.map((charger, index) => {
             const isLastItem = index === chargers.length - 1;
             return (
