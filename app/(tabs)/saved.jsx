@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { View, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, SafeAreaView, TouchableOpacity, Text, ScrollView, StyleSheet } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
 import EmptySection from "../../components/EmptySection";
@@ -25,13 +25,24 @@ const Saved = () => {
     return savedChargers;
   };
 
+  const handleChargerClick = (chargerID) => {
+    router.push({
+      pathname: `details/${chargerID}`,
+      params: {
+        chargerID: chargerID
+      }
+    })
+  }
+
   useEffect(() => {
     const fetchChargers = async () => {
-      try {
-        const fetchedChargers = await fetchChargersById(userData.saved_chargers);
-        setChargers(fetchedChargers);
-      } catch (error) {
-        console.error("Error fetching chargers:", error);
+      if (userData.saved_chargers.length !== 0) {
+        try {
+          const fetchedChargers = await fetchChargersById(userData.saved_chargers);
+          setChargers(fetchedChargers);
+        } catch (error) {
+          console.error("Error fetching chargers:", error);
+        }
       }
     };
 
@@ -40,33 +51,31 @@ const Saved = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <View className="mx-6">
+      <ScrollView className="mx-6" showsVerticalScrollIndicator="false  ">
+        <View className="mt-16">
+          <Text className="text-3xl font-semibold">Saved for later</Text>
+        </View>
         {userData.saved_chargers.length !== 0 ? (
-          chargers.map((charger) => {
-            return (
-              <TouchableOpacity key={charger.id} activeOpacity={0.7}>
-                <SavedChargerCard
-                  chargerType={charger.charger_type}
-                  chargerCity={charger.city}
-                  chargerState={charger.state}
-                  imageURL={charger.charger_image}
-                />
-              </TouchableOpacity>
-            );
-          })
+    
+            <View className="mt-6 flex flex-row flex-wrap justify-between">
+              {chargers.map((charger) => (
+                <TouchableOpacity key={charger.id} activeOpacity={0.7} onPress={() => handleChargerClick(charger.id)}>
+                  <SavedChargerCard chargerType={charger.charger_type} chargerCity={charger.city} chargerState={charger.state} imageURL={charger.charger_image} />
+                </TouchableOpacity>
+              ))}
+            </View>
+
         ) : (
           <View>
-            <EmptySection
-              sectionTitle={"Saved for later"}
-              subHeader={"Bummer, no chargers saved."}
-              descriptionText={"Chargers that you've saved for later will appear here."}
-            />
+            <EmptySection subHeader={"Bummer, no chargers saved."} descriptionText={"Chargers that you've saved for later will appear here."} />
             <CustomButton title="Start exploring" buttonStyles="w-40 h-12 bg-gray-900 mt-4" textStyles="text-white text-base" handlePress={() => router.replace("/explore")} />
           </View>
         )}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
+
 
 export default Saved;
