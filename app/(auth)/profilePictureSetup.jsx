@@ -72,7 +72,7 @@ const ProfilePictureSetup = () => {
     <SafeAreaView>
       <View>
         <ElectricEdgeHeader customStyles="mt-8" />
-        <View className="mx-8">
+        <View className="mx-6">
           <Text className="font-bold text-3xl max-w-lg">Would you like to add a profile picture?</Text>
           <Text className="mb-4 text-gray-700 mt-2 text-[17px]">Don't worry, you can always come back and do this later.</Text>
           <View className="flex items-center">
