@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image} from "react-native";
 import React from "react";
 
 const ExploreChargerCard = ({ chargerType, chargerCity, chargerState, chargerRate, imageURL, cardStyles }) => {
