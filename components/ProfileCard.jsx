@@ -2,28 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { UserContext } from "../config/UserContext";
+import { UserProfileContext } from "../config/UserProfileContext";
 import { db } from "../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { router } from "expo-router";
 
 const ProfileCard = () => {
   const { currentUser } = useContext(UserContext);
-  const [displayName, setDisplayName] = useState("...")
-
-  const getDisplayName = async () => {
-    const profileRef = doc(db, "profiles", currentUser.uid)
-    const profileSnap = await getDoc(profileRef)
-
-    if (profileSnap.exists()){
-      setDisplayName(profileSnap.data().display_name)
-    }
-  }
-
-  getDisplayName()
-
+  const { userData } = useContext(UserProfileContext)
 
   return (
-    <View className="border-b border-gray-300">
+    <View className="border-b border-gray-300 bg-red-300">
       <TouchableOpacity className="flex-row items-center pb-4 justify-between mt-9 h-20" onPress={() => router.push("/profile/editProfile")}>
         <View className="flex-row items-center">
           {currentUser && currentUser.photoURL ? (
@@ -35,7 +24,7 @@ const ProfileCard = () => {
             <Image className="w-16 h-16 rounded-full" source={require(".././assets/images/profilePicture.png")} />
           )}
           <View className="w-[256px]">
-            <Text className="text-lg ml-4">{displayName}</Text>
+            <Text className="text-lg ml-4">{userData.display_name}</Text>
             <Text className="ml-4 text-slate-500">Edit Profile</Text>
           </View>
         </View>
