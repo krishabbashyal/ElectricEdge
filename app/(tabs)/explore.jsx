@@ -35,7 +35,6 @@ const Explore = () => {
   }, []);
 
   const handleChargerClick = (chargerID) => {
-    console.log(`Charger ${chargerID} pressed`)
     router.push({
       pathname: `details/${chargerID}`,
       params: {

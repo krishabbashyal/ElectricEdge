@@ -23,7 +23,6 @@ const Details = () => {
 
     if (docSnap.exists()) {
       setChargerData(docSnap.data());
-      console.log(docSnap.data());
     }
   };
 
@@ -37,7 +36,7 @@ const Details = () => {
       <ScrollView bounces="false">
   
         <BackButton customStyles={"mt-16 ml-5"} />
-        <FavoriteButton customStyles={"mt-16 right-0 mr-5"}/>
+        <FavoriteButton customStyles={"mt-16 right-0 mr-5"} chargerID={chargerID}/>
   
         <Image className="w-full h-[400px]" source={{ uri: chargerData.charger_image }} />
         <View className="mx-6 pb-8">

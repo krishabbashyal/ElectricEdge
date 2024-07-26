@@ -82,13 +82,11 @@ const editProfile = () => {
         resolve(xhr.response);
       };
       xhr.onerror = function (e) {
-        console.log(e);
         reject(new TypeError("Network request failed"));
       };
       xhr.responseType = "blob";
       xhr.open("GET", uri, true);
       xhr.send(null);
-      console.log("MADE IT TO HERE");
     });
 
     const profilePictureRef = ref(storage, `profile_pictures/${uuid.v4()}`);
