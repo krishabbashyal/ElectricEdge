@@ -110,7 +110,7 @@ const editProfile = () => {
     <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1 }}>
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <BackButton customStyles={`mt-16 ml-5`}/>
-          <View className="mx-8 justify-end mb-4">
+          <View className="mx-6 justify-end mb-4">
             <View className="mt-16">
               <Text className="text-3xl font-semibold">Edit profile</Text>
             </View>
