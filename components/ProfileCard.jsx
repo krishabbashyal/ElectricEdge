@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { UserContext } from "../config/UserContext";
 import { UserProfileContext } from "../config/UserProfileContext";
-import { db } from "../config/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
 import { router } from "expo-router";
 
 const ProfileCard = () => {
