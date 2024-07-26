@@ -10,7 +10,7 @@ const ProfileCard = () => {
   const { userData } = useContext(UserProfileContext)
 
   return (
-    <View className="border-b border-gray-300 bg-red-300">
+    <View className="border-b border-gray-300">
       <TouchableOpacity className="flex-row items-center pb-4 justify-between mt-9 h-20" onPress={() => router.push("/profile/editProfile")}>
         <View className="flex-row items-center">
           {currentUser && currentUser.photoURL ? (
