@@ -10,7 +10,7 @@ const FavoriteButton = ({ customStyles }) => {
   return (
     <TouchableOpacity className={`z-10 ${customStyles} absolute`} activeOpacity={1}>
       <View className="p-1.5 bg-white rounded-full">
-      <AntDesign name="heart" size={20} color="black" />
+      <AntDesign name="hearto" size={20} color="black" />
       </View>
     </TouchableOpacity>
   );
