@@ -11,7 +11,7 @@ const chargerListing = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <View className="mx-8">
+      <View className="mx-6">
         <BackButton/>
         <View className="mt-16">
           <Text className="text-3xl font-semibold">List your charger</Text>
