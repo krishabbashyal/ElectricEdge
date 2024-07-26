@@ -5,7 +5,7 @@ import CustomButton from "../../components/CustomButton";
 import CustomInputField from "../../components/CustomInputField";
 import { router } from "expo-router";
 import { db } from "../../config/firebaseConfig";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { UserContext } from "../../config/UserContext";
 import * as ImagePicker from "expo-image-picker";
@@ -16,32 +16,18 @@ import * as uuid from "uuid";
 import BackButton from "../../components/BackButton";
 
 import { updateProfile } from "firebase/auth";
+import { UserProfileContext } from "../../config/UserProfileContext";
 
 const editProfile = () => {
   const { currentUser } = useContext(UserContext);
+  const { userData } = useContext(UserProfileContext)
   const [profilePicture, setProfilePicture] = useState(currentUser.photoURL);
 
   const [formData, setFormData] = useState({
-    displayName: "",
-    phoneNumber: "",
+    displayName: userData.display_name,
+    phoneNumber: userData.phone_number,
   });
 
-  useEffect(() => {
-    const getDisplayName = async () => {
-      const profileRef = doc(db, "profiles", currentUser.uid);
-      const profileSnap = await getDoc(profileRef);
-
-      if (profileSnap.exists()) {
-        const profileData = profileSnap.data();
-        setFormData((prevData) => ({
-          ...prevData,
-          displayName: profileData.display_name,
-          phoneNumber: profileData.phone_number,
-        }));
-      }
-    };
-    getDisplayName();
-  }, []);
 
   const selectProfilePicture = async () => {
     let userProfilePicture = await ImagePicker.launchImageLibraryAsync({
@@ -115,6 +101,7 @@ const editProfile = () => {
 
     if (displayNameValid && phoneNumberValid) {
       sendDataToFirebase(formData.displayName, formData.phoneNumber, currentUser);
+      
       router.replace("profile");
     }
   };
