@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
+import { ScrollView, View, SafeAreaView, TouchableOpacity } from "react-native";
 import ExploreSearchAndFilter from "../../components/ExploreSearchAndFilter";
 import ExploreChargerCard from "../../components/ExploreChargerCard";
-import QuickCityFilterScroller from "../../components/QuickCityFilterScroller";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { storage } from "../../config/firebaseConfig";
@@ -46,7 +45,6 @@ const Explore = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ExploreSearchAndFilter />
-      {/* <QuickCityFilterScroller /> */}
       <View className="mx-6 h-full mt-2">
         <ScrollView className="flex-1">
           {chargers.map((charger, index) => {
