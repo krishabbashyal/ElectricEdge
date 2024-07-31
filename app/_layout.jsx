@@ -14,6 +14,7 @@ const RootLayout = () => {
           <Stack.Screen name="profile/editProfile" options={{ headerShown: false }} />
           <Stack.Screen name="profile/chargerListing" options={{ headerShown: false }} />
           <Stack.Screen name="details/[id]" options={{ headerShown: false}} />
+          <Stack.Screen name="bookings/[id]" options={{ headerShown: false}} />
         </Stack>
       </UserProfileProvider>
     </UserProvider>
