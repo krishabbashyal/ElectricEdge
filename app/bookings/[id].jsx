@@ -38,12 +38,17 @@ const Details = () => {
       <View className="h-[105px] border-b border-gray-300">
         <Text className="text-center mt-[67px] font-medium text-base ">Confirm Booking</Text>
       </View>
-      <ConfirmBookingCard chargerImage={chargerData.charger_image} chargerType={chargerData.charger_type} chargerCity={chargerData.city} chargerState={chargerData.state} hourlyRate={chargerData.hourly_rate} />
-     
 
-      <View className="fixed bottom-0">
-        <ChargerBookBanner hourlyRate={chargerData.hourly_rate} />
+      <View className="">
+        <ConfirmBookingCard chargerImage={chargerData.charger_image} chargerType={chargerData.charger_type} chargerCity={chargerData.city} chargerState={chargerData.state} hourlyRate={chargerData.hourly_rate} />
+        <View className="mx-6 mt-4">
+          <Text className="font-semibold text-lg">Your Booking</Text>
+        </View>
       </View>
+
+      {/* <View className="fixed bottom-0">
+        <ChargerBookBanner hourlyRate={chargerData.hourly_rate} />
+      </View> */}
     </View>
   );
 };
