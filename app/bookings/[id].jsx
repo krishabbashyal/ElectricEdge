@@ -1,13 +1,11 @@
-import { View, Image, SafeAreaView, Text } from "react-native";
+import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useLocalSearchParams } from "expo-router";
 
-import ChargerHostInformation from "../../components/ChargerHostInformation";
-import ChargerListingDescription from "../../components/ChargerListingDescription";
-import ChargerListingOverview from "../../components/ChargerListingOverview";
-import ChargerCheckInMethod from "../../components/ChargerCheckInMethod";
+import ConfirmBookingCard from "../../components/ConfirmBookingCard";
+
 import ChargerBookBanner from "../../components/ChargerBookBanner";
 import BackButton from "../../components/BackButton";
 
@@ -20,37 +18,33 @@ const Details = () => {
     const docRef = doc(db, "chargers", chargerID);
     const docSnap = await getDoc(docRef);
 
-
     if (docSnap.exists()) {
       setChargerData(docSnap.data());
-      console.log(docSnap.data())
+      console.log(docSnap.data());
     } else {
-      console.log("Something went wrong")
-      console.log(JSON.stringify(docSnap.data()))
+      console.log("Something went wrong");
+      console.log(JSON.stringify(docSnap.data()));
     }
   };
-
 
   useEffect(() => {
     fetchChargerDetails();
   }, []);
 
   return (
-    <SafeAreaView>
+    <View>
       <BackButton customStyles={"mt-16 ml-5"} />
-      <Text>Confirm Booking</Text>
-      <Image className="w-[150px] h-[150px]" source={{ uri: chargerData.charger_image }} />
-      <View className="mx-6 pb-8">
-        <ChargerListingOverview chargerType={chargerData.charger_type} city={chargerData.city} state={chargerData.state} />
-        <ChargerHostInformation hostDisplayName={chargerData.host_display_name} hostProfilePicture={chargerData.host_image} />
-        <ChargerCheckInMethod allowSelfCheckIn={chargerData.self_check_in} />
-        <ChargerListingDescription description={chargerData.description} />
+
+      <View className="h-[105px] border-b border-gray-300">
+        <Text className="text-center mt-[67px] font-medium text-base ">Confirm Booking</Text>
       </View>
+      <ConfirmBookingCard chargerImage={chargerData.charger_image} chargerType={chargerData.charger_type} chargerCity={chargerData.city} chargerState={chargerData.state} hourlyRate={chargerData.hourly_rate} />
+     
 
       <View className="fixed bottom-0">
         <ChargerBookBanner hourlyRate={chargerData.hourly_rate} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
