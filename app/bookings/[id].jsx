@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useLocalSearchParams } from "expo-router";
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 import ConfirmBookingCard from "../../components/ConfirmBookingCard";
 
 import ChargerBookBanner from "../../components/ChargerBookBanner";
@@ -39,9 +39,9 @@ const Details = () => {
         <Text className="text-center mt-[67px] font-medium text-base ">Confirm Booking</Text>
       </View>
 
-      <View className="">
+      <View className="bg-red-200">
         <ConfirmBookingCard chargerImage={chargerData.charger_image} chargerType={chargerData.charger_type} chargerCity={chargerData.city} chargerState={chargerData.state} hourlyRate={chargerData.hourly_rate} />
-        <View className="mx-6 mt-4">
+        <View className="mx-6 mt-4 bg-blue-300">
           <Text className="font-semibold text-lg">Your Booking</Text>
         </View>
       </View>
