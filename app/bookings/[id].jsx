@@ -13,14 +13,25 @@ const Details = () => {
   const [chargerData, setChargerData] = useState("");
   const [checkInDate, setCheckInDate] = useState(new Date());
   const [checkOutDate, setCheckOutDate] = useState(new Date());
+
+  const [numOfHours, setNumOfHours] = useState(0);
+
   const { chargerID } = useLocalSearchParams();
+
 
   const onChangeCheckInDate = (event, selectedDate) => {
     setCheckInDate(selectedDate);
+    calculateHoursBetween(selectedDate, checkOutDate);
   };
 
   const onChangeCheckOutDate = (event, selectedDate) => {
     setCheckOutDate(selectedDate);
+    calculateHoursBetween(checkInDate, selectedDate);
+  };
+  const calculateHoursBetween = (checkInTime, checkOutTime) => {
+    const diffInMs = checkOutTime - checkInTime;
+    const diffInHours = diffInMs / (1000 * 60 * 60);
+    setNumOfHours(diffInHours)
   };
 
   const fetchChargerDetails = async () => {
@@ -60,23 +71,27 @@ const Details = () => {
           <Text className="font-semibold text-lg">Booking details</Text>
           <View className="mt-2 mb-4">
             <View className="flex flex-row justify-between items-center">
-              <Text>Check in time</Text>
+              <Text>Check-in</Text>
               <DateTimePicker mode="datetime" value={checkInDate} minimumDate={new Date()} onChange={onChangeCheckInDate}></DateTimePicker>
             </View>
-            <View className="flex mt-2 flex-row justify-between items-center">
-              <Text>Check out time</Text>
+            <View className="flex mt-4 flex-row justify-between items-center">
+              <Text>Check-out</Text>
               <DateTimePicker mode="datetime" value={checkOutDate} minimumDate={checkInDate} onChange={onChangeCheckOutDate}></DateTimePicker>
             </View>
           </View>
         </View>
         <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
           <Text className="font-semibold text-lg">Pricing details</Text>
-          <View className="mt-2 mb-4"></View>
+          <Text>Booking time: {numOfHours} hours</Text>
+          <Text>Rental Price: ${numOfHours * chargerData.hourly_rate}</Text>
+          <Text>Booking Fee: $5.00</Text>
+          <Text>Total: ${numOfHours * chargerData.hourly_rate + 5}</Text>
+
         </View>
       </View>
 
       <View className="fixed bottom-0">
-        <CustomButton title="Continue" handlePress={() => console.log(`Check in time: ${checkInDate}\nCheck out time: ${checkOutDate}`)} />
+        <CustomButton title="Continue" handlePress={() => calculateHoursBetween(checkInDate, checkOutDate)} />
       </View>
     </View>
   );
