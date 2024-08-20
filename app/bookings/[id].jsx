@@ -69,7 +69,7 @@ const Details = () => {
       </View>
 
       <View className="fixed bottom-0">
-        <CustomButton title="Continue" handlePress=/>
+        <CustomButton title="Continue" handlePress={() => console.log("Button Pressed")}/>
       </View>
     </View>
   );
