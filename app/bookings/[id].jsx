@@ -6,7 +6,7 @@ import { useLocalSearchParams } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ConfirmBookingCard from "../../components/ConfirmBookingCard";
 
-import ChargerBookBanner from "../../components/ChargerBookBanner";
+import CustomButton from "../../components/CustomButton";
 import BackButton from "../../components/BackButton";
 
 const Details = () => {
@@ -67,10 +67,10 @@ const Details = () => {
           </View>
         </View>
       </View>
-{/* 
+
       <View className="fixed bottom-0">
-        <ChargerBookBanner hourlyRate={chargerData.hourly_rate} />
-      </View> */}
+        <CustomButton title="Continue" handlePress=/>
+      </View>
     </View>
   );
 };
