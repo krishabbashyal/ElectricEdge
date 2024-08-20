@@ -11,8 +11,17 @@ import BackButton from "../../components/BackButton";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
-
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const { chargerID } = useLocalSearchParams();
+
+  const onChangeCheckInDate = (event, selectedDate) => {
+    setCheckInDate(selectedDate);
+  };
+
+  const onChangeCheckOutDate = (event, selectedDate) => {
+    setCheckOutDate(selectedDate);
+  };
 
   const fetchChargerDetails = async () => {
     const docRef = doc(db, "chargers", chargerID);
@@ -52,24 +61,22 @@ const Details = () => {
           <View className="mt-2 mb-4">
             <View className="flex flex-row justify-between items-center">
               <Text>Check in time</Text>
-              <DateTimePicker mode="datetime" value={new Date()} minimumDate={new Date()}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkInDate} minimumDate={new Date()} onChange={onChangeCheckInDate}></DateTimePicker>
             </View>
             <View className="flex mt-2 flex-row justify-between items-center">
               <Text>Check out time</Text>
-              <DateTimePicker mode="datetime" value={new Date()} minimumDate={new Date()}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkOutDate} minimumDate={checkInDate} onChange={onChangeCheckOutDate}></DateTimePicker>
             </View>
           </View>
         </View>
         <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
           <Text className="font-semibold text-lg">Pricing details</Text>
-          <View className="mt-2 mb-4">
-
-          </View>
+          <View className="mt-2 mb-4"></View>
         </View>
       </View>
 
       <View className="fixed bottom-0">
-        <CustomButton title="Continue" handlePress={() => console.log("Button Pressed")}/>
+        <CustomButton title="Continue" handlePress={() => console.log(`Check in time: ${checkInDate}\nCheck out time: ${checkOutDate}`)} />
       </View>
     </View>
   );
