@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useLocalSearchParams } from "expo-router";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 import ConfirmBookingCard from "../../components/ConfirmBookingCard";
 
 import ChargerBookBanner from "../../components/ChargerBookBanner";
@@ -39,14 +39,36 @@ const Details = () => {
         <Text className="text-center mt-[67px] font-medium text-base ">Confirm Booking</Text>
       </View>
 
-      <View className="bg-red-200">
-        <ConfirmBookingCard chargerImage={chargerData.charger_image} chargerType={chargerData.charger_type} chargerCity={chargerData.city} chargerState={chargerData.state} hourlyRate={chargerData.hourly_rate} />
-        <View className="mx-6 mt-4 bg-blue-300">
-          <Text className="font-semibold text-lg">Your Booking</Text>
+      <View>
+        <ConfirmBookingCard
+          chargerImage={chargerData.charger_image}
+          chargerType={chargerData.charger_type}
+          chargerCity={chargerData.city}
+          chargerState={chargerData.state}
+          hourlyRate={chargerData.hourly_rate}
+        />
+        <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
+          <Text className="font-semibold text-lg">Booking details</Text>
+          <View className="mt-2 mb-4">
+            <View className="flex flex-row justify-between items-center">
+              <Text>Check in time</Text>
+              <DateTimePicker mode="datetime" value={new Date()} minimumDate={new Date()}></DateTimePicker>
+            </View>
+            <View className="flex mt-2 flex-row justify-between items-center">
+              <Text>Check out time</Text>
+              <DateTimePicker mode="datetime" value={new Date()} minimumDate={new Date()}></DateTimePicker>
+            </View>
+          </View>
+        </View>
+        <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
+          <Text className="font-semibold text-lg">Pricing details</Text>
+          <View className="mt-2 mb-4">
+
+          </View>
         </View>
       </View>
-
-      {/* <View className="fixed bottom-0">
+{/* 
+      <View className="fixed bottom-0">
         <ChargerBookBanner hourlyRate={chargerData.hourly_rate} />
       </View> */}
     </View>
