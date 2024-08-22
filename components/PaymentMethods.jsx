@@ -1,10 +1,16 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
-const PaymentMethods = () => {
+const PaymentMethods = ({onSendData}) => {
   const [activeMethod, setActiveMethod] = useState();
+
+  useEffect(() => {
+    if (activeMethod !== undefined) {
+      onSendData(activeMethod)
+    }
+  }, [activeMethod, onSendData]);
 
   return (
     <View className="mt-2">
