@@ -16,7 +16,8 @@ const ProfileSettingsList = () => {
         <ProfileSettingsTab iconName="mail" text="Contact me" linkURL={"mailto:krishabbashyal@gmail.com"} />
       </View>
       <View className="mt-8">
-        <Text className="text-[22px] font-medium">Profile and settings</Text>
+        <Text className="text-[22px] font-medium mb-1">Profile and settings</Text>
+        <ProfileSettingsTab iconName="battery-charging" size={24} text="Previous bookings" linkURL={"mailto:krishabbashyal@gmail.com"} />
         <SignOutButton />
       </View>
     </View>
