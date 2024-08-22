@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
@@ -7,6 +7,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import ConfirmBookingCard from "../../components/ConfirmBookingCard";
 import CustomButton from "../../components/CustomButton";
 import BackButton from "../../components/BackButton";
+import PricingDetails from "../../components/PricingDetails";
+import PaymentMethods from "../../components/PaymentMethods";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
@@ -104,7 +106,7 @@ const Details = () => {
   }
 
   return (
-    <View>
+    <ScrollView>
       <BackButton customStyles={"mt-16 ml-5"} />
       <View className="h-[105px] border-b border-gray-300">
         <Text className="text-center mt-[67px] font-medium text-base">Confirm Booking</Text>
@@ -117,43 +119,50 @@ const Details = () => {
           chargerState={chargerData.state}
           hourlyRate={chargerData.hourly_rate}
         />
-        <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
-          <Text className="font-semibold text-lg">Booking details</Text>
-          <View className="mt-2 mb-4">
-            <View className="flex flex-row justify-between items-center">
-              <Text>Check-in</Text>
-              <DateTimePicker
-                mode="datetime"
-                value={checkInDate}
-                minuteInterval={10}
-                minimumDate={minCheckInDate}
-                onChange={onChangeCheckInDate}
-              />
-            </View>
-            <View className="flex mt-4 flex-row justify-between items-center">
-              <Text>Check-out</Text>
-              <DateTimePicker
-                mode="datetime"
-                value={checkOutDate}
-                minuteInterval={10}
-                minimumDate={minCheckOutDate}
-                onChange={onChangeCheckOutDate}
-              />
+        <View className="-mx-6 mt-4 border-t-8 border-[#E3E3E4] pt-4">
+          <View className="mx-12">
+            <Text className="font-semibold text-xl">Booking details</Text>
+            <View className="mt-2 mb-4">
+              <View className="flex flex-row justify-between items-center">
+                <Text className="text-base">Check-in</Text>
+                <DateTimePicker
+                  mode="datetime"
+                  value={checkInDate}
+                  minuteInterval={10}
+                  minimumDate={minCheckInDate}
+                  onChange={onChangeCheckInDate}
+                />
+              </View>
+              <View className="flex mt-4 flex-row justify-between items-center">
+                <Text className="text-base">Check-out</Text>
+                <DateTimePicker
+                  mode="datetime"
+                  value={checkOutDate}
+                  minuteInterval={10}
+                  minimumDate={minCheckOutDate}
+                  onChange={onChangeCheckOutDate}
+                />
+              </View>
             </View>
           </View>
         </View>
-        <View className="mx-6 mt-4 border-t border-gray-300 pt-4">
-          <Text className="font-semibold text-lg">Pricing details</Text>
-          <Text>Booking time: {numOfHours.toFixed(2)} hours</Text>
-          <Text>Rental Price: ${(numOfHours * chargerData.hourly_rate).toFixed(2)}</Text>
-          <Text>Platform Fee: $5.00</Text>
-          <Text>Total: ${(numOfHours * chargerData.hourly_rate + 5).toFixed(2)}</Text>
+        <View className="-mx-6 mt-4 border-t-8 border-[#E3E3E4] pt-4">
+          <View className="mx-12">
+            <Text className="font-semibold text-xl">Pricing details</Text>
+              <PricingDetails bookingDuration={numOfHours.toFixed(2)} hourlyRate={chargerData.hourly_rate}/>
+          </View>
+        </View>
+        <View className="-mx-6 mt-2 border-t-8 border-b-8 pb-3 border-[#E3E3E4] pt-4">
+          <View className="mx-12">
+            <Text className="font-semibold text-xl">Payment method</Text>
+            <PaymentMethods/>
+          </View>
         </View>
       </View>
-      <View className="fixed bottom-0">
+      <View className="fixed bottom-0 pb-16 mt-8 mx-6">
         <CustomButton title="Continue" handlePress={() => logData()} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
