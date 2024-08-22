@@ -11,8 +11,36 @@ import BackButton from "../../components/BackButton";
 
 const Details = () => {
   const [chargerData, setChargerData] = useState("");
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [checkInDate, setCheckInDate] = useState(() => {
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const remainder = minutes % 10;
+    if (remainder !== 0) {
+      date.setMinutes(minutes + (20 - remainder));
+    }
+    return date;
+  });
+
+  const [minCheckInDate, setMinCheckInDate] = useState(() => {
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const remainder = minutes % 10;
+    if (remainder !== 0) {
+      date.setMinutes(minutes + (20 - remainder));
+    }
+    return date;
+  });
+
+
+  const [minCheckOutDate, setMinCheckOutDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(minCheckOutDate);
+  
+  
+  useEffect(() => {
+    const newMinCheckOutDate = new Date(checkInDate);
+    newMinCheckOutDate.setMinutes(newMinCheckOutDate.getMinutes() + 30);
+    setMinCheckOutDate(newMinCheckOutDate);
+  }, [checkInDate]);
 
   const [numOfHours, setNumOfHours] = useState(0);
 
@@ -33,6 +61,17 @@ const Details = () => {
     const diffInHours = diffInMs / (1000 * 60 * 60);
     setNumOfHours(diffInHours)
   };
+
+  const logData = () => {
+    console.log("")
+    console.log("minCheckInDate: ", minCheckInDate.toLocaleString());
+    console.log("minCheckOutDate: ", minCheckOutDate.toLocaleString());
+
+    console.log("checkInDate: ", checkInDate.toLocaleString());
+    console.log("checkOutDate: ", checkOutDate.toLocaleString());
+    console.log("")
+
+  }
 
   const fetchChargerDetails = async () => {
     const docRef = doc(db, "chargers", chargerID);
@@ -72,11 +111,11 @@ const Details = () => {
           <View className="mt-2 mb-4">
             <View className="flex flex-row justify-between items-center">
               <Text>Check-in</Text>
-              <DateTimePicker mode="datetime" value={checkInDate} minuteInterval={10} minimumDate={new Date()} onChange={onChangeCheckInDate}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkInDate} minuteInterval={10} minimumDate={minCheckInDate} onChange={onChangeCheckInDate}></DateTimePicker>
             </View>
             <View className="flex mt-4 flex-row justify-between items-center">
               <Text>Check-out</Text>
-              <DateTimePicker mode="datetime" value={checkOutDate} minuteInterval={10} minimumDate={checkInDate} onChange={onChangeCheckOutDate}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkOutDate} minuteInterval={10} minimumDate={minCheckOutDate} onChange={onChangeCheckOutDate}></DateTimePicker>
             </View>
           </View>
         </View>
@@ -91,7 +130,7 @@ const Details = () => {
       </View>
 
       <View className="fixed bottom-0">
-        <CustomButton title="Continue" handlePress={() => calculateHoursBetween(checkInDate, checkOutDate)} />
+        <CustomButton title="Continue" handlePress={() => logData()} />
       </View>
     </View>
   );
