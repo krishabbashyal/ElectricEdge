@@ -18,10 +18,9 @@ const UserProfileProvider = ({ children }) => {
         (profileSnap) => {
           if (profileSnap.exists()) {
             setUserData(profileSnap.data());
-            console.log("Data fetched for current user in the user profile data context");
-            console.log(profileSnap.data());
+
           } else {
-            console.log("No profile data available.");
+
             setUserData(null);
           }
         },
@@ -33,7 +32,7 @@ const UserProfileProvider = ({ children }) => {
 
       return () => unsubscribe();
     } else {
-      console.log("No current user. Skipping data fetch.");
+
       setUserData(null);
       return undefined;
     }
