@@ -72,11 +72,11 @@ const Details = () => {
           <View className="mt-2 mb-4">
             <View className="flex flex-row justify-between items-center">
               <Text>Check-in</Text>
-              <DateTimePicker mode="datetime" value={checkInDate} minimumDate={new Date()} onChange={onChangeCheckInDate}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkInDate} minuteInterval={10} minimumDate={new Date()} onChange={onChangeCheckInDate}></DateTimePicker>
             </View>
             <View className="flex mt-4 flex-row justify-between items-center">
               <Text>Check-out</Text>
-              <DateTimePicker mode="datetime" value={checkOutDate} minimumDate={checkInDate} onChange={onChangeCheckOutDate}></DateTimePicker>
+              <DateTimePicker mode="datetime" value={checkOutDate} minuteInterval={10} minimumDate={checkInDate} onChange={onChangeCheckOutDate}></DateTimePicker>
             </View>
           </View>
         </View>
