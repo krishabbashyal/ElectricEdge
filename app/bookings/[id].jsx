@@ -32,8 +32,13 @@ const Details = () => {
   });
 
 
-  const [minCheckOutDate, setMinCheckOutDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(minCheckOutDate);
+  const [minCheckOutDate, setMinCheckOutDate] = useState(() => {
+    const date = new Date(minCheckInDate)
+    date.setMinutes(date.getMinutes() + 30)
+    return date ;
+  });
+
+  const [checkOutDate, setCheckOutDate] = useState(new Date(minCheckOutDate));
   
   
   useEffect(() => {
@@ -47,12 +52,12 @@ const Details = () => {
   const { chargerID } = useLocalSearchParams();
 
 
-  const onChangeCheckInDate = (event, selectedDate) => {
+  const onChangeCheckInDate = (selectedDate) => {
     setCheckInDate(selectedDate);
     calculateHoursBetween(selectedDate, checkOutDate);
   };
 
-  const onChangeCheckOutDate = (event, selectedDate) => {
+  const onChangeCheckOutDate = (selectedDate) => {
     setCheckOutDate(selectedDate);
     calculateHoursBetween(checkInDate, selectedDate);
   };
