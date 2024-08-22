@@ -58,6 +58,13 @@ const Details = () => {
   const [numOfHours, setNumOfHours] = useState(0);
   const { chargerID } = useLocalSearchParams();
 
+  const [paymentMethodFromChild, setPaymentMethodFromChild] = useState();
+
+  const handlePaymentMethodFromChild = (paymentMethod) => {
+    setPaymentMethodFromChild(paymentMethod);
+    console.log("paymentMethodFromChild: ", paymentMethodFromChild);
+  }  
+
   const onChangeCheckInDate = (event, selectedDate) => {
     const currentDate = selectedDate || checkInDate;
     setCheckInDate(currentDate);
@@ -155,12 +162,12 @@ const Details = () => {
         <View className="-mx-6 mt-2 border-t-8 border-b-8 pb-3 border-[#E3E3E4] pt-4">
           <View className="mx-12">
             <Text className="font-semibold text-xl">Payment method</Text>
-            <PaymentMethods/>
+            <PaymentMethods onSendData={handlePaymentMethodFromChild}/>
           </View>
         </View>
       </View>
       <View className="fixed bottom-0 pb-16 mt-8 mx-6">
-        <CustomButton title="Continue" handlePress={() => logData()} />
+        <CustomButton title="Confirm and pay" handlePress={() => logData()} />
       </View>
     </ScrollView>
   );
