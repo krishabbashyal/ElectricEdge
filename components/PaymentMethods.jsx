@@ -9,14 +9,14 @@ const PaymentMethods = () => {
   return (
     <View className="mt-2">
       <TouchableOpacity activeOpacity={1.0}
-        className={`border h-15 p-4 rounded-xl border-gray-400 border- flex flex-row items-center mb-2 ${activeMethod === "paypal" ? "border-gray-800 border-[1.5px]" : ""}`}
-        onPress={() => setActiveMethod("paypal")}>
+        className={`border h-15 p-4 rounded-xl border-gray-400 border- flex flex-row items-center mb-2 ${activeMethod === "PayPal" ? "border-gray-800 border-[1.5px]" : ""}`}
+        onPress={() => setActiveMethod("PayPal")}>
         <FontAwesome name="paypal" size={24} color="black" />
         <Text className="ml-6 text-base">PayPal</Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={1.0}
-        className={`border h-15 p-4 rounded-xl border-gray-400 flex flex-row items-center mb-2 ${activeMethod === "credit-card" ? "border-gray-800 border-[1.5px]" : ""}`}
-        onPress={() => setActiveMethod("credit-card")}>
+        className={`border h-15 p-4 rounded-xl border-gray-400 flex flex-row items-center mb-2 ${activeMethod === "Credit Card" ? "border-gray-800 border-[1.5px]" : ""}`}
+        onPress={() => setActiveMethod("Credit Card")}>
         <FontAwesome name="cc-discover" size={24} color="black" />
         <View className="flex flex-row items-center ml-4">
           <Text className="text-[8px]">&#9679;&#9679;&#9679;&#9679;</Text>
@@ -24,8 +24,8 @@ const PaymentMethods = () => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={1.0}
-        className={`border h-15 p-4 rounded-xl border-gray-400 flex flex-row items-center mb-2 ${activeMethod === "apple-pay" ? "border-gray-800 border-[1.5px]" : ""}`}
-        onPress={() => setActiveMethod("apple-pay")}>
+        className={`border h-15 p-4 rounded-xl border-gray-400 flex flex-row items-center mb-2 ${activeMethod === "Apple Pay" ? "border-gray-800 border-[1.5px]" : ""}`}
+        onPress={() => setActiveMethod("Apple Pay")}>
         <FontAwesome5 name="apple-pay" size={26} color="black" />
         <Text className="ml-4 text-base">Apple Pay</Text>
       </TouchableOpacity>
