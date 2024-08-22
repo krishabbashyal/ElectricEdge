@@ -17,12 +17,8 @@ const Details = () => {
     date.setSeconds(0)
     const minutes = date.getMinutes();
     const remainder = minutes % 10;
-    if (remainder !== 0) {
-      date.setMinutes(minutes + (20 - remainder));
-    }
-    else {
-      date.setMinutes(minutes + (10 - remainder));
-    }
+    date.setMinutes(minutes + (20 - remainder));
+    
     return date;
   });
 
@@ -31,12 +27,8 @@ const Details = () => {
     date.setSeconds(0)
     const minutes = date.getMinutes();
     const remainder = minutes % 10;
-    if (remainder !== 0) {
-      date.setMinutes(minutes + (20 - remainder));
-    }
-    else {
-      date.setMinutes(minutes + (10 - remainder));
-    }
+    date.setMinutes(minutes + (20 - remainder));
+
     return date;
   });
 
@@ -154,8 +146,8 @@ const Details = () => {
           <Text className="font-semibold text-lg">Pricing details</Text>
           <Text>Booking time: {numOfHours.toFixed(2)} hours</Text>
           <Text>Rental Price: ${(numOfHours * chargerData.hourly_rate).toFixed(2)}</Text>
-          <Text>Booking Fee: $5.00</Text>
-          <Text>Total: ${numOfHours * chargerData.hourly_rate + 5}</Text>
+          <Text>Platform Fee: $5.00</Text>
+          <Text>Total: ${(numOfHours * chargerData.hourly_rate + 5).toFixed(2)}</Text>
         </View>
       </View>
       <View className="fixed bottom-0">
