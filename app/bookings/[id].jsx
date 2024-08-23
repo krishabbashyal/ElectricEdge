@@ -123,7 +123,7 @@ const Details = () => {
       const profileRef = doc(db, "profiles", currentUser.uid);
 
       try {
-        await updateDoc(profileRef, {
+        const response = await updateDoc(profileRef, {
           bookings: arrayUnion({
             // This line cheating but it works.
             // charger_data: chargerData,
@@ -134,11 +134,10 @@ const Details = () => {
             payment_method: paymentMethodFromChild,
           }),
         });
-        console.log("Document Updated");
+        console.log(response);
         setTimeout(() => {
           handleSucessRedirect();
         }, 300);
-        handleSucessRedirect()
       } catch (error) {
         console.log(error);
       }
