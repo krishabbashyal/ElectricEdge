@@ -70,7 +70,6 @@ const Details = () => {
 
   const handlePaymentMethodFromChild = (paymentMethod) => {
     setPaymentMethodFromChild(paymentMethod);
-    console.log("paymentMethodFromChild: ", paymentMethodFromChild);
   };
 
   const onChangeCheckInDate = (event, selectedDate) => {
@@ -101,7 +100,7 @@ const Details = () => {
     if (docSnap.exists()) {
       setChargerData(docSnap.data());
     } else {
-      console.log("No such document!");
+      console.error("No such document!");
     }
   };
 
@@ -134,12 +133,11 @@ const Details = () => {
             payment_method: paymentMethodFromChild,
           }),
         });
-        console.log(response);
         setTimeout(() => {
           handleSucessRedirect();
         }, 300);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };

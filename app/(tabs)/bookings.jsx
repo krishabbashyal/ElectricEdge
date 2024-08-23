@@ -10,10 +10,6 @@ const Bookings = () => {
   const { currentUser } = useContext(UserContext);
   const { userData } = useContext(UserProfileContext);
 
-  useEffect(() => {
-    console.log(userData, currentUser);
-  }, [userData, currentUser]);
-
   // Check if userData is undefined and show a loading indicator
   if (!userData) {
     return <Text>Loading...</Text>;
