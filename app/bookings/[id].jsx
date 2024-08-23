@@ -15,24 +15,24 @@ import { UserProfileContext } from "../../config/UserProfileContext";
 
 const Details = () => {
   const { currentUser } = useContext(UserContext);
-  const { userData  } = useContext(UserProfileContext);
+  const { userData } = useContext(UserProfileContext);
 
   const [chargerData, setChargerData] = useState("");
-  
+
   // Ensure valid Date object for checkInDate and minCheckInDate
   const [checkInDate, setCheckInDate] = useState(() => {
     const date = new Date();
-    date.setSeconds(0)
+    date.setSeconds(0);
     const minutes = date.getMinutes();
     const remainder = minutes % 10;
     date.setMinutes(minutes + (20 - remainder));
-    
+
     return date;
   });
 
   const [minCheckInDate, setMinCheckInDate] = useState(() => {
     const date = new Date();
-    date.setSeconds(0)
+    date.setSeconds(0);
     const minutes = date.getMinutes();
     const remainder = minutes % 10;
     date.setMinutes(minutes + (20 - remainder));
@@ -42,7 +42,7 @@ const Details = () => {
 
   const [minCheckOutDate, setMinCheckOutDate] = useState(() => {
     const date = new Date(checkInDate); // Calculate based on checkInDate
-    date.setSeconds(0)
+    date.setSeconds(0);
     date.setMinutes(date.getMinutes() + 30);
     return date;
   });
@@ -69,7 +69,7 @@ const Details = () => {
   const handlePaymentMethodFromChild = (paymentMethod) => {
     setPaymentMethodFromChild(paymentMethod);
     console.log("paymentMethodFromChild: ", paymentMethodFromChild);
-  }  
+  };
 
   const onChangeCheckInDate = (event, selectedDate) => {
     const currentDate = selectedDate || checkInDate;
@@ -108,12 +108,16 @@ const Details = () => {
   }, []);
 
   const handleConfirmPressed = () => {
-    console.log("")
-    console.log("checkInDate: ", checkInDate);
-    console.log("checkOutDate: ", checkOutDate);
-    console.log("")
-
-  }
+    if (paymentMethodFromChild === undefined) {
+      alert("Please select a payment method");
+      return;
+    } else {
+      console.log("");
+      console.log("checkInDate: ", checkInDate);
+      console.log("checkOutDate: ", checkOutDate);
+      console.log("");
+    }
+  };
 
   return (
     <ScrollView>
@@ -135,23 +139,11 @@ const Details = () => {
             <View className="mt-2 mb-4">
               <View className="flex flex-row justify-between items-center">
                 <Text className="text-base">Check-in</Text>
-                <DateTimePicker
-                  mode="datetime"
-                  value={checkInDate}
-                  minuteInterval={10}
-                  minimumDate={minCheckInDate}
-                  onChange={onChangeCheckInDate}
-                />
+                <DateTimePicker mode="datetime" value={checkInDate} minuteInterval={10} minimumDate={minCheckInDate} onChange={onChangeCheckInDate} />
               </View>
               <View className="flex mt-4 flex-row justify-between items-center">
                 <Text className="text-base">Check-out</Text>
-                <DateTimePicker
-                  mode="datetime"
-                  value={checkOutDate}
-                  minuteInterval={10}
-                  minimumDate={minCheckOutDate}
-                  onChange={onChangeCheckOutDate}
-                />
+                <DateTimePicker mode="datetime" value={checkOutDate} minuteInterval={10} minimumDate={minCheckOutDate} onChange={onChangeCheckOutDate} />
               </View>
             </View>
           </View>
@@ -159,13 +151,13 @@ const Details = () => {
         <View className="-mx-6 mt-4 border-t-8 border-[#E3E3E4] pt-4">
           <View className="mx-12">
             <Text className="font-semibold text-xl">Pricing details</Text>
-              <PricingDetails bookingDuration={numOfHours.toFixed(2)} hourlyRate={chargerData.hourly_rate}/>
+            <PricingDetails bookingDuration={numOfHours.toFixed(2)} hourlyRate={chargerData.hourly_rate} />
           </View>
         </View>
         <View className="-mx-6 mt-2 border-t-8 border-b-8 pb-3 border-[#E3E3E4] pt-4">
           <View className="mx-12">
             <Text className="font-semibold text-xl">Payment method</Text>
-            <PaymentMethods onSendData={handlePaymentMethodFromChild}/>
+            <PaymentMethods onSendData={handlePaymentMethodFromChild} />
           </View>
         </View>
       </View>
