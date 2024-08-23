@@ -124,9 +124,8 @@ const Details = () => {
       try {
         const response = await updateDoc(profileRef, {
           booked_chargers: arrayUnion({
-            // This line cheating but it works.
-            // charger_data: chargerData,
             charger_id: chargerID,
+            charger_data: chargerData,
             check_in_date: checkInDate,
             check_out_date: checkOutDate,
             total_price: (numOfHours * chargerData.hourly_rate + 5.0).toFixed(2), // Fix here

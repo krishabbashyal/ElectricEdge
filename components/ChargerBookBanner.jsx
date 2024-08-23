@@ -13,7 +13,7 @@ const ChargerBookBanner = ({ hourlyRate, chargerID }) => {
 
   useEffect(() => {
     // Check if the charger is already booked
-    const isBooked = userData.bookings.some((booking) => booking.charger_id === chargerID);
+    const isBooked = userData.booked_chargers.some((booking) => booking.charger_id === chargerID);
     setChargerAlreadyBooked(isBooked);
   }, []);
 
