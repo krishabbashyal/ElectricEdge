@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../../config/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useLocalSearchParams } from "expo-router";
@@ -10,7 +10,13 @@ import BackButton from "../../components/BackButton";
 import PricingDetails from "../../components/PricingDetails";
 import PaymentMethods from "../../components/PaymentMethods";
 
+import { UserContext } from "../../config/UserContext";
+import { UserProfileContext } from "../../config/UserProfileContext";
+
 const Details = () => {
+  const { currentUser } = useContext(UserContext);
+  const { userData  } = useContext(UserProfileContext);
+
   const [chargerData, setChargerData] = useState("");
   
   // Ensure valid Date object for checkInDate and minCheckInDate
@@ -103,11 +109,8 @@ const Details = () => {
 
   const handleConfirmPressed = () => {
     console.log("")
-    console.log("minCheckInDate: ", minCheckInDate.toLocaleString());
-    console.log("minCheckOutDate: ", minCheckOutDate.toLocaleString());
-
-    console.log("checkInDate: ", checkInDate.toLocaleString());
-    console.log("checkOutDate: ", checkOutDate.toLocaleString());
+    console.log("checkInDate: ", checkInDate);
+    console.log("checkOutDate: ", checkOutDate);
     console.log("")
 
   }
