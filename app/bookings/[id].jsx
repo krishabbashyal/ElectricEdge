@@ -101,7 +101,7 @@ const Details = () => {
     fetchChargerDetails();
   }, []);
 
-  const logData = () => {
+  const handleConfirmPressed = () => {
     console.log("")
     console.log("minCheckInDate: ", minCheckInDate.toLocaleString());
     console.log("minCheckOutDate: ", minCheckOutDate.toLocaleString());
@@ -167,7 +167,7 @@ const Details = () => {
         </View>
       </View>
       <View className="fixed bottom-0 pb-16 mt-8 mx-6">
-        <CustomButton title="Confirm and pay" handlePress={() => logData()} />
+        <CustomButton title="Confirm and pay" buttonStyles="bg-[#3A8060] h-14" textStyles="text-white" handlePress={() => handleConfirmPressed()} />
       </View>
     </ScrollView>
   );
