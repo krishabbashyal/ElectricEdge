@@ -16,6 +16,7 @@ import { UserProfileContext } from "../../config/UserProfileContext";
 const Details = () => {
   const { currentUser } = useContext(UserContext);
   const { userData } = useContext(UserProfileContext);
+  const [paymentError, setPaymentError] = useState(false);
 
   const [chargerData, setChargerData] = useState("");
 
@@ -109,9 +110,10 @@ const Details = () => {
 
   const handleConfirmPressed = () => {
     if (paymentMethodFromChild === undefined) {
-      alert("Please select a payment method");
+      setPaymentError(true)
       return;
     } else {
+      setPaymentError(false)
       console.log("");
       console.log("checkInDate: ", checkInDate);
       console.log("checkOutDate: ", checkOutDate);
@@ -157,7 +159,7 @@ const Details = () => {
         <View className="-mx-6 mt-2 border-t-8 border-b-8 pb-3 border-[#E3E3E4] pt-4">
           <View className="mx-12">
             <Text className="font-semibold text-xl">Payment method</Text>
-            <PaymentMethods onSendData={handlePaymentMethodFromChild} />
+            <PaymentMethods onSendData={handlePaymentMethodFromChild} showError={paymentError} />
           </View>
         </View>
       </View>
