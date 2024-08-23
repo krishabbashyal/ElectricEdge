@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { db } from "../../config/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useLocalSearchParams } from "expo-router";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ConfirmBookingCard from "../../components/ConfirmBookingCard";
@@ -108,16 +108,31 @@ const Details = () => {
     fetchChargerDetails();
   }, []);
 
-  const handleConfirmPressed = () => {
+  const handleConfirmPressed = async () => {
     if (paymentMethodFromChild === undefined) {
-      setPaymentError(true)
+      setPaymentError(true);
       return;
     } else {
-      setPaymentError(false)
-      console.log("");
-      console.log("checkInDate: ", checkInDate);
-      console.log("checkOutDate: ", checkOutDate);
-      console.log("");
+      setPaymentError(false);
+
+      const profileRef = doc(db, "profiles", currentUser.uid);
+
+      try {
+        await updateDoc(profileRef, {
+          bookings: arrayUnion({
+            // This line cheating but it works.
+            // charger_data: chargerData,
+            charger_id: chargerID,
+            check_in_date: checkInDate,
+            check_out_date: checkOutDate,
+            total_price: (numOfHours * chargerData.hourly_rate + 5.0).toFixed(2), // Fix here
+            payment_method: paymentMethodFromChild,
+          }),
+        });
+        console.log("Document Updated");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
