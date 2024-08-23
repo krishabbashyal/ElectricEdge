@@ -9,6 +9,7 @@ import CustomButton from "../../components/CustomButton";
 import BackButton from "../../components/BackButton";
 import PricingDetails from "../../components/PricingDetails";
 import PaymentMethods from "../../components/PaymentMethods";
+import { router } from "expo-router";
 
 import { UserContext } from "../../config/UserContext";
 import { UserProfileContext } from "../../config/UserProfileContext";
@@ -104,6 +105,10 @@ const Details = () => {
     }
   };
 
+  const handleSucessRedirect = () => {
+    router.replace("/bookings");
+  };
+
   useEffect(() => {
     fetchChargerDetails();
   }, []);
@@ -130,6 +135,10 @@ const Details = () => {
           }),
         });
         console.log("Document Updated");
+        setTimeout(() => {
+          handleSucessRedirect();
+        }, 300);
+        handleSucessRedirect()
       } catch (error) {
         console.log(error);
       }

@@ -53,7 +53,8 @@ const ProfileSetup = () => {
       phone_number: phoneNumber,
       terms_agreed: termsAgreed,
       date_created: Timestamp.fromDate(new Date()),
-      saved_chargers: []
+      saved_chargers: [],
+      bookings: []
     });
   };
 
