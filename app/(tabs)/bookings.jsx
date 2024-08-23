@@ -11,8 +11,13 @@ const Bookings = () => {
   const { userData } = useContext(UserProfileContext);
 
   useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+    console.log(userData, currentUser);
+  }, [userData, currentUser]);
+
+  // Check if userData is undefined and show a loading indicator
+  if (!userData) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
