@@ -36,6 +36,7 @@ const ChargerBookBanner = ({ hourlyRate, chargerID }) => {
         <CustomButton
           buttonStyles={`h-14 w-40 mt-3 ${chargerAlreadyBooked ? "bg-gray-500" : "bg-EE-Green"}`}
           textStyles="text-white font-semibold"
+          disabled={chargerAlreadyBooked}
           title={chargerAlreadyBooked ? "Already booked" : "Book charger"}
           handlePress={chargerAlreadyBooked ? null : handleBookButtonPressed}
         />
