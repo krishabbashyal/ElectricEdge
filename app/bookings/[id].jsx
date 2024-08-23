@@ -123,7 +123,7 @@ const Details = () => {
 
       try {
         const response = await updateDoc(profileRef, {
-          bookings: arrayUnion({
+          booked_chargers: arrayUnion({
             // This line cheating but it works.
             // charger_data: chargerData,
             charger_id: chargerID,

@@ -54,7 +54,7 @@ const ProfileSetup = () => {
       terms_agreed: termsAgreed,
       date_created: Timestamp.fromDate(new Date()),
       saved_chargers: [],
-      bookings: []
+      booked_chargers: []
     });
   };
 
