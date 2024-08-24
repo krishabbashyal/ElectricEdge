@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Text, View, SafeAreaView, ScrollView } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
@@ -73,6 +73,7 @@ const Bookings = () => {
                   totalPrice={booking.total_price}
                   paymentMethod={booking.payment_method}
                   checkInMethod={booking.charger_data.self_check_in ? "Check yourself in when you arrive" : "Contact host when ready to check in"}
+                  chargerID = {booking.charger_id}
                 />
               </View>
             );
