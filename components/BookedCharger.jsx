@@ -40,7 +40,7 @@ const BookedCharger = ({ cardStyles, chargerType, chargerCity, chargerState, ima
             <Text className="text-lg text-center font-bold mb-">Confirm cancellation?</Text>
             <Text className="text-center mt-2">Are you sure you want to cancel this booking? This action cannot be undone.</Text>
             <View className="flex-row mt-4 justify-between border-t border-gray-100 pt-4">
-              <TouchableOpacity onPress={handleCancelConfirmation} className="h-12 border w items-center border-gray-300 rounded-md  justify-center">
+              <TouchableOpacity onPress={handleCancelConfirmation} className="h-12 border w-2/5 items-center border-gray-300 rounded-md justify-center">
                 <Text className="text-blue-500 font-semibold">No</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleConfirmCancel} className="h-12 border w-36 bg-red-400 items-center border-red-400 rounded-md  justify-center">
