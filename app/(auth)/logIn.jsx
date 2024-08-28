@@ -1,5 +1,5 @@
 import { SafeAreaView, View, Text } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import ElectricEdgeHeader from "../../components/ElectricEdgeHeader";
 import CustomInputField from "../../components/CustomInputField";
 import CustomButton from "../../components/CustomButton";
@@ -8,12 +8,17 @@ import { auth } from "../../config/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
 import AlertBanner from "../../components/AlertBanner";
+import { UserContext } from "../../config/UserContext";
+import { UserProfileContext } from "../../config/UserProfileContext";
 
 const logIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { currentUser } = useContext(UserContext);
+  const { userData } = useContext(UserProfileContext);
 
   const [serverMessage, setServerMessage] = useState("");
 
@@ -28,6 +33,17 @@ const logIn = () => {
     setFormData({ ...formData, password });
   };
 
+  const handleRedirect = () => {
+
+    if (!userData && currentUser) {
+      router.replace("/profileSetup");
+    }
+
+    if (currentUser && userData) {
+      router.replace("/explore");
+    }
+  };
+
   const submitForm = async () => {
     setServerMessage("");
     const emailValid = emailFieldRef.current.validate();
@@ -36,7 +52,7 @@ const logIn = () => {
     if (emailValid && passwordValid) {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
-        router.replace("/explore");
+        handleRedirect()
       } catch (error) {
         setServerMessage(error.message);
 
