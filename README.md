@@ -6,7 +6,7 @@ Welcome to ElectricEdge! This app is designed to provide a platform for electric
 ## Features
 
 - **User Registration and Authentication**: Users can create an account, log in, and manage their profiles.
-- **Search and Filter**: Travelers can search for chargers based on location, type, and availability.
+- **Search and Filter**: Travelers can search for chargers based on location, type, and pricing.
 - **Booking System**: Users can book chargers for specific dates and times (demo functionality, no real transactions)
 - **Favorite Chargers**: Users can favorite chargers to save and come back to at later times
 - **Profile Management**: Users can edit their profile information, including profile pictures, display names and phone number
