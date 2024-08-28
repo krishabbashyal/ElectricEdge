@@ -19,20 +19,7 @@ Welcome to ElectricEdge! This app is designed to provide a platform for electric
 - **Backend**: Firebase
 - **Database**: Firestore
 - **Authentication**: Firebase Auth
-
-## Usage
-
-### For Charger Owners:
-1. **Sign Up** and create a profile.
-2. **List Your Charger**: Provide details such as the location, charging type (e.g., Level 1, Level 2, DC Fast Charger), and availability.
-3. **Manage Listings**: Update your charger details and availability as needed.
-
-### For Travelers:
-1. **Sign Up** and create a profile.
-2. **Search for Chargers**: Use the search functionality to find chargers along your travel route.
-3. **Book a Charger**: Select a charger and choose your desired date and time for charging. (Note: This is a demo feature, and no real booking or payment processing will occur.)
-
-
+- 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
