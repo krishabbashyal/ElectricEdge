@@ -59,7 +59,7 @@ const Saved = () => {
     
             <View className="mt-6 flex flex-row flex-wrap justify-between">
               {chargers.map((charger) => (
-                <TouchableOpacity key={charger.id} activeOpacity={0.7} onPress={() => handleChargerClick(charger.id)}>
+                <TouchableOpacity className="w-full" key={charger.id} activeOpacity={0.7} onPress={() => handleChargerClick(charger.id)}>
                   <SavedChargerCard chargerType={charger.charger_type} chargerCity={charger.city} chargerState={charger.state} imageURL={charger.charger_image} />
                 </TouchableOpacity>
               ))}
