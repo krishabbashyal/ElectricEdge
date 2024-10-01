@@ -32,6 +32,7 @@ const Details = () => {
     return date;
   });
 
+// TODO; DOES THIS HAVE TO BE A STATE? 
   const [minCheckInDate, setMinCheckInDate] = useState(() => {
     const date = new Date();
     date.setSeconds(0);
